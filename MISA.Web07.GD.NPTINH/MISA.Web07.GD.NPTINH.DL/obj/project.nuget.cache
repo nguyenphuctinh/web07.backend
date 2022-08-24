@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "nOONe2IznwMUAOliCnlApK3/x4PSINoLSnEyAbYDthMXt4Jgxsen38YTu43oIGX1tvQb/c1MTdZ3js+1lln1HA==",
+  "success": true,
+  "projectFilePath": "D:\\MISA\\Backend\\MISA.Web07.GD.NPTINH\\MISA.Web07.GD.NPTINH.DL\\MISA.Web07.GD.NPTINH.DL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\mysqlconnector\\2.1.12\\mysqlconnector.2.1.12.nupkg.sha512"
+  ],
+  "logs": []
+}

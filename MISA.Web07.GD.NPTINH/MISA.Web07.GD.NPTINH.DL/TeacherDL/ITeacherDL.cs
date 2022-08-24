@@ -1,0 +1,21 @@
+﻿using MISA.Web07.GD.NPTINH.API.Entities;
+
+namespace MISA.Web07.GD.NPTINH.DL
+{
+    public interface ITeacherDL : IBaseDL<Teacher>
+    {
+        /// <summary>
+        /// Lấy mã cán bộ/giáo viên lớn nhất
+        /// </summary>
+        /// <returns>Mã cán bộ giáo viên lớn nhất</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public string GetMaxCode();
+        /// <summary>
+        /// Xóa cán bộ/giáo viên theo ID cán bộ/giáo viên
+        /// </summary>
+        /// <param name="teacherID">ID cán bộ/giáo viên</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int DeleteTeacherByID(Guid teacherID);
+    }
+}

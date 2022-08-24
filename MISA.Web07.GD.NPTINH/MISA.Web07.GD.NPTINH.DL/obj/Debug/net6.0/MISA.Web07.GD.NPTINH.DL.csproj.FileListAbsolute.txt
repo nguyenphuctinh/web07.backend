@@ -1,0 +1,15 @@
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\bin\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.deps.json
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\bin\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.dll
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\bin\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.pdb
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\bin\Debug\net6.0\MISA.Web07.GD.NPTINH.Common.dll
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\bin\Debug\net6.0\MISA.Web07.GD.NPTINH.Common.pdb
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.csproj.AssemblyReference.cache
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.GeneratedMSBuildEditorConfig.editorconfig
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.AssemblyInfoInputs.cache
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.AssemblyInfo.cs
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.csproj.CoreCompileInputs.cache
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.csproj.CopyComplete
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.dll
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\refint\MISA.Web07.GD.NPTINH.DL.dll
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.DL.pdb
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.DL\obj\Debug\net6.0\ref\MISA.Web07.GD.NPTINH.DL.dll

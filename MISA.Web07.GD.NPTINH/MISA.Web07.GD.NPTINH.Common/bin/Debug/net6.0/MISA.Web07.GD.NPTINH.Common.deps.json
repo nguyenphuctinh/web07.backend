@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "MISA.Web07.GD.NPTINH.Common/1.0.0": {
+        "runtime": {
+          "MISA.Web07.GD.NPTINH.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MISA.Web07.GD.NPTINH.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -72,7 +72,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// <summary>
         /// Ngày nghỉ việc
         /// </summary>
-        public DateTime QuitDate { get; set; }
+        public DateTime? QuitDate { get; set; }
 
         /// <summary>
         /// Ngày tạo

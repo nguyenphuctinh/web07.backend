@@ -79,7 +79,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
 
@@ -116,9 +116,10 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                 {
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
-                        string insertSubjectManagementCommand = "INSERT INTO subjectmanagement(TeacherID, SubjectID, CreatedDate, CreatedBy)" +
-                            "VALUES(@TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
+                        string insertSubjectManagementCommand = "INSERT INTO subjectmanagement(SubjectManagementID, TeacherID, SubjectID, CreatedDate, CreatedBy)" +
+                            "VALUES(@SubjectManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var subjectManagementParameters = new DynamicParameters();
+                        subjectManagementParameters.Add("@SubjectManagementID", Guid.NewGuid());
                         subjectManagementParameters.Add("@TeacherID", newTeacherID);
                         subjectManagementParameters.Add("@SubjectID", subjectManagement.SubjectID);
                         subjectManagementParameters.Add("@CreatedDate", now);
@@ -131,9 +132,10 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                     }
                     foreach (var roomManagement in teacher.RoomManagementList)
                     {
-                        string insertRoomManagementCommand = "INSERT INTO roommanagement(TeacherID, RoomID, CreatedDate, CreatedBy)" +
-                            "VALUES(@TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
+                        string insertRoomManagementCommand = "INSERT INTO roommanagement(RoomManagementID, TeacherID, RoomID, CreatedDate, CreatedBy)" +
+                            "VALUES(@RoomManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var roomManagementParameters = new DynamicParameters();
+                        roomManagementParameters.Add("@RoomManagementID", Guid.NewGuid());
                         roomManagementParameters.Add("@TeacherID", newTeacherID);
                         roomManagementParameters.Add("@SubjectID", roomManagement.RoomID);
                         roomManagementParameters.Add("@CreatedDate", now);
@@ -161,7 +163,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
         [HttpPut("{TeacherID}")]
@@ -195,14 +197,14 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                     mysqlConnection.Execute(deleteSubjectManagementCommand, deleteSubjectManagementCommandParameters);
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
-                        string insertSubjectManagementCommand = "INSERT INTO subjectmanagement(SubjectMangementID, TeacherID, SubjectID, CreatedDate, CreatedBy)" +
-                            "VALUES(@SubjectMangementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
+                        string insertSubjectManagementCommand = "INSERT INTO subjectmanagement(SubjectManagementID, TeacherID, SubjectID, CreatedDate, CreatedBy)" +
+                            "VALUES(@SubjectManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var subjectManagementParameters = new DynamicParameters();
-                        subjectManagementParameters.Add("@SubjectMangementID", Guid.NewGuid());
+                        subjectManagementParameters.Add("@SubjectManagementID", Guid.NewGuid());
                         subjectManagementParameters.Add("@TeacherID", teacherID);
                         subjectManagementParameters.Add("@SubjectID", subjectManagement.SubjectID);
                         subjectManagementParameters.Add("@CreatedDate", now);
-                        subjectManagementParameters.Add("@CreatedBy", subjectManagement.CreatedBy);
+                        subjectManagementParameters.Add("@CreatedBy", teacher.ModifiedBy);
                         int numberOfAffectedSubjectManagementRows = mysqlConnection.Execute(insertSubjectManagementCommand, subjectManagementParameters);
                         if (numberOfAffectedSubjectManagementRows < 0)
                         {
@@ -222,7 +224,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                         roomManagementParameters.Add("@TeacherID", teacherID);
                         roomManagementParameters.Add("@SubjectID", roomManagement.RoomID);
                         roomManagementParameters.Add("@CreatedDate", now);
-                        roomManagementParameters.Add("@CreatedBy", roomManagement.CreatedBy);
+                        roomManagementParameters.Add("@CreatedBy", teacher.ModifiedBy);
                         int numberOfAffectedRoomManagementRows = mysqlConnection.Execute(insertRoomManagementCommand, roomManagementParameters);
                         if (numberOfAffectedRoomManagementRows < 0)
                         {
@@ -239,7 +241,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
         [HttpDelete("{TeacherID}")]
@@ -264,7 +266,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
         /// <summary>
@@ -295,7 +297,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
         /// <summary>
@@ -328,7 +330,7 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
     }

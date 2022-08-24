@@ -104,7 +104,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
 
             }
         }

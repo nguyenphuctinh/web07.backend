@@ -38,5 +38,23 @@ namespace MISA.Web07.GD.NPTINH.DL
                 return maxTeacherCode;
             }
         }
+
+        /// <summary>
+        /// API Lấy thông tin chi tiết của 1 cán bộ/giáo viên
+        /// </summary>
+        /// <param name="teacherID">ID của cán bộ/giáo viên muốn lấy thông tin chi tiết</param>
+        /// <returns>Đối tượng cán bộ/giáo viên muốn lấy thông tin chi tiết</returns>
+        /// Created by: NPTINH (16/08/2022)
+        public Teacher GetTeacherByID(Guid teacherID)
+        {
+            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            {
+                string storedProcedureName = "Proc_Teacher_GetByTeacherID";
+                var parameters = new DynamicParameters();
+                parameters.Add("@v_TeacherID", teacherID);
+                var teacher = mySqlConnection.QueryFirstOrDefault<Teacher>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                return teacher;
+            }
+        }
     }
 }

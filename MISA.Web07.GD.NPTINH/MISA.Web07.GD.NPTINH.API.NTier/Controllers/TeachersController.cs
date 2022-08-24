@@ -76,8 +76,36 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+        }
+        /// <summary>
+        /// API Lấy thông tin chi tiết của 1 cán bộ/giáo viên
+        /// </summary>
+        /// <param name="teacherID">ID của cán bộ/giáo viên muốn lấy thông tin chi tiết</param>
+        /// <returns>Đối tượng cán bộ/giáo viên muốn lấy thông tin chi tiết</returns>
+        /// Created by: NPTINH (23/08/2022)
+        [HttpGet("{teacherID}")]
+        public IActionResult GetTeacherByID([FromRoute] Guid teacherID)
+        {
+            try
+            {
+                var teacher = _teacherBL.GetTeacherByID(teacherID);
+                if (teacher != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, teacher);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "e001");
+
             }
         }
     }

@@ -34,7 +34,7 @@
         /// <summary>
         /// Người tạo
         /// </summary>
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         #endregion
     }
 }

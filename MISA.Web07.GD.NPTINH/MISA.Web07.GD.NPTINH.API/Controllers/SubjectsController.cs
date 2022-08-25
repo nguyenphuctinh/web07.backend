@@ -8,6 +8,11 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
     [ApiController]
     public class SubjectsController : ControllerBase
     {
+        /// <summary>
+        /// API lấy tất cả môn học
+        /// </summary>
+        /// <returns>Trả về danh sách môn học</returns>
+        /// Created by: NPTINH (18/08/2022)
         [HttpGet]
         public IActionResult GetAllSubjects()
         {

@@ -1,8 +1,11 @@
-﻿namespace MISA.Web07.GD.NPTINH.API.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MISA.Web07.GD.NPTINH.API.Entities
 {
     /// <summary>
     /// Tổ bộ môn
     /// </summary>
+    [Table("Groups")]
     public class Group
     {
         #region Property

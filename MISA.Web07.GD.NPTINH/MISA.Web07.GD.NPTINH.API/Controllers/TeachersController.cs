@@ -18,10 +18,13 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
         {
             try
             {
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
                 var mysqlConnection = new MySqlConnection(connectionString);
+                // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_Teacher_GetPaging";
                 var parameters = new DynamicParameters();
+                // Chuẩn bị tham số đầu vào cho store procedure
                 parameters.Add("@v_Offset", (pageNumber - 1) * pageSize);
                 parameters.Add("@v_Limit", pageSize);
                 parameters.Add("@v_Sort", "ModifiedDate DESC");
@@ -32,17 +35,20 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                 }
                 parameters.Add("@v_Where", whereClause);
                 var multipleResults = mysqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                // Xử lý dữ liệu trả về
                 if (multipleResults != null)
                 {
                     var teachers = multipleResults.Read<Teacher>().ToList();
                     foreach (var teacher in teachers)
                     {
                         var newMysqlConnection = new MySqlConnection(connectionString);
-
+                        // Chuẩn bị tên stored procedure
                         string procGetSubjectManagementListName = "Proc_SubjectManagement_GetSubjectManagementList";
                         var procSubjectManagementParameters = new DynamicParameters();
+                        // Chuẩn bị tham số đầu vào cho store procedure
                         procSubjectManagementParameters.Add("@v_TeacherID", teacher.TeacherID);
                         var procSubjectManagementResults = newMysqlConnection.QueryMultiple(procGetSubjectManagementListName, procSubjectManagementParameters, commandType: System.Data.CommandType.StoredProcedure);
+                        // Xử lý dữ liệu trả về
                         if (procSubjectManagementResults != null)
                         {
                             teacher.SubjectManagementList = procSubjectManagementResults.Read<SubjectManagement>().ToList();
@@ -52,9 +58,12 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                             return StatusCode(StatusCodes.Status400BadRequest, "e002");
                         }
                         string procGetRoomManagementListName = "Proc_RoomManagement_GetRoomManagementList";
+                        // Chuẩn bị tên stored procedure
                         var procRoomManagementParameters = new DynamicParameters();
+                        // Chuẩn bị tham số đầu vào cho store procedure
                         procRoomManagementParameters.Add("@v_TeacherID", teacher.TeacherID);
                         var procRoomManagementResults = newMysqlConnection.QueryMultiple(procGetRoomManagementListName, procRoomManagementParameters, commandType: System.Data.CommandType.StoredProcedure);
+                        // Xử lý dữ liệu trả về
                         if (procRoomManagementResults != null)
                         {
                             teacher.RoomManagementList = procRoomManagementResults.Read<RoomManagement>().ToList();
@@ -83,19 +92,27 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
             }
         }
 
-
-
+        /// <summary>
+        /// API thêm mới cán bộ/giáo viên
+        /// </summary>
+        /// <param name="teacher">Đối tượng cán bộ giáo viên</param>
+        /// <returns>ID cán bộ/giáo viên được thêm mới</returns>
+        /// Created by: NPTINH (18/08/2022)
         [HttpPost]
         public IActionResult InsertTeacher([FromBody] Teacher teacher)
         {
             try
             {
-
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
                 var mysqlConnection = new MySqlConnection(connectionString);
+
+                // Chuẩn bị câu lệnh INSERT INTO
                 string insertTeacherCommand = "INSERT INTO teacher(  TeacherID , TeacherCode , FullName , PhoneNumber , Email , GroupID , EMT , IsWorking , QuitDate , CreatedDate , CreatedBy , ModifiedDate , ModifiedBy)" +
                     "VALUES( @TeacherID, @TeacherCode, @FullName, @PhoneNumber, @Email, @GroupID, @EMT, @IsWorking, @QuitDate, @CreatedDate, @CreatedBy, @ModifiedDate, @ModifiedBy); ";
                 var parameters = new DynamicParameters();
+
+                // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
                 Guid newTeacherID = Guid.NewGuid();
                 var now = DateTime.Now;
                 parameters.Add("@TeacherId", newTeacherID);
@@ -111,19 +128,28 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                 parameters.Add("@CreatedBy", teacher.CreatedBy);
                 parameters.Add("@ModifiedDate", now);
                 parameters.Add("@ModifiedBy", teacher.ModifiedBy);
+
+                // Thực hiện gọi vào DB để chạy câu lệnh INSERT INTO với tham số đầu vào ở trên
                 int numberOfAffectedRows = mysqlConnection.Execute(insertTeacherCommand, parameters);
+
+                // Xử lý kết quả trả về từ DB
                 if (numberOfAffectedRows > 0)
                 {
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
+                        // Chuẩn bị câu lệnh INSERT INTO
                         string insertSubjectManagementCommand = "INSERT INTO subjectmanagement(SubjectManagementID, TeacherID, SubjectID, CreatedDate, CreatedBy)" +
                             "VALUES(@SubjectManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var subjectManagementParameters = new DynamicParameters();
+
+                        // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
                         subjectManagementParameters.Add("@SubjectManagementID", Guid.NewGuid());
                         subjectManagementParameters.Add("@TeacherID", newTeacherID);
                         subjectManagementParameters.Add("@SubjectID", subjectManagement.SubjectID);
                         subjectManagementParameters.Add("@CreatedDate", now);
                         subjectManagementParameters.Add("@CreatedBy", subjectManagement.CreatedBy);
+
+                        // Thực hiện gọi vào DB để chạy câu lệnh INSERT INTO với tham số đầu vào ở trên
                         int numberOfAffectedSubjectManagementRows = mysqlConnection.Execute(insertSubjectManagementCommand, subjectManagementParameters);
                         if (numberOfAffectedSubjectManagementRows < 0)
                         {
@@ -132,14 +158,19 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                     }
                     foreach (var roomManagement in teacher.RoomManagementList)
                     {
+                        // Chuẩn bị câu lệnh INSERT INTO
                         string insertRoomManagementCommand = "INSERT INTO roommanagement(RoomManagementID, TeacherID, RoomID, CreatedDate, CreatedBy)" +
                             "VALUES(@RoomManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var roomManagementParameters = new DynamicParameters();
+
+                        // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
                         roomManagementParameters.Add("@RoomManagementID", Guid.NewGuid());
                         roomManagementParameters.Add("@TeacherID", newTeacherID);
                         roomManagementParameters.Add("@SubjectID", roomManagement.RoomID);
                         roomManagementParameters.Add("@CreatedDate", now);
                         roomManagementParameters.Add("@CreatedBy", roomManagement.CreatedBy);
+
+                        // Thực hiện gọi vào DB để chạy câu lệnh INSERT INTO với tham số đầu vào ở trên
                         int numberOfAffectedRoomManagementRows = mysqlConnection.Execute(insertRoomManagementCommand, roomManagementParameters);
                         if (numberOfAffectedRoomManagementRows < 0)
                         {
@@ -166,16 +197,29 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
+
+        /// <summary>
+        /// API sửa cán bộ giáo viên
+        /// </summary>
+        /// <param name="teacher">Đối tượng cán bộ/giáo viên</param>
+        /// <param name="teacherID">ID cán bộ giáo viên</param>
+        /// <returns>Trả về ID cán bộ giáo viên được chỉnh sửa</returns>
+        /// Created by: NPTINH (16/08/2022)
         [HttpPut("{TeacherID}")]
         public IActionResult UpdateTeacher([FromBody] Teacher teacher, [FromRoute] Guid teacherID)
         {
             try
             {
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
                 var mysqlConnection = new MySqlConnection(connectionString);
+
+                // Chuẩn bị câu lệnh UPDATE
                 string updateTeacherCommand = "UPDATE teacher SET TeacherCode = @TeacherCode , FullName = @FullName , PhoneNumber = @PhoneNumber , Email = @Email , GroupID = @GroupID , EMT = @EMT , IsWorking = @IsWorking , QuitDate = @QuitDate, ModifiedDate = @ModifiedDate , ModifiedBy = @ModifiedBy " +
                                              "WHERE  TeacherID = @TeacherID; ";
                 var parameters = new DynamicParameters();
+
+                // Chuẩn bị tham số đầu vào cho câu lệnh UPDATE
                 var now = DateTime.Now;
                 parameters.Add("@TeacherID", teacherID);
                 parameters.Add("@TeacherCode", teacher.TeacherCode);
@@ -189,6 +233,8 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                 parameters.Add("@ModifiedDate", now);
                 parameters.Add("@ModifiedBy", teacher.ModifiedBy);
                 int numberOfAffectedRows = mysqlConnection.Execute(updateTeacherCommand, parameters);
+
+                // Xử lý dữ liệu trả về
                 if (numberOfAffectedRows > 0)
                 {
                     string deleteSubjectManagementCommand = $"delete from subjectmanagement where TeacherID = @TeacherID";
@@ -197,15 +243,20 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                     mysqlConnection.Execute(deleteSubjectManagementCommand, deleteSubjectManagementCommandParameters);
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
+                        // Chuẩn bị câu lệnh INSERT INTO
                         string insertSubjectManagementCommand = "INSERT INTO subjectmanagement(SubjectManagementID, TeacherID, SubjectID, CreatedDate, CreatedBy)" +
                             "VALUES(@SubjectManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var subjectManagementParameters = new DynamicParameters();
+
+                        // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
                         subjectManagementParameters.Add("@SubjectManagementID", Guid.NewGuid());
                         subjectManagementParameters.Add("@TeacherID", teacherID);
                         subjectManagementParameters.Add("@SubjectID", subjectManagement.SubjectID);
                         subjectManagementParameters.Add("@CreatedDate", now);
                         subjectManagementParameters.Add("@CreatedBy", teacher.ModifiedBy);
                         int numberOfAffectedSubjectManagementRows = mysqlConnection.Execute(insertSubjectManagementCommand, subjectManagementParameters);
+
+                        // Xử lý dữ liệu trả về
                         if (numberOfAffectedSubjectManagementRows < 0)
                         {
                             return StatusCode(StatusCodes.Status400BadRequest, "e002");
@@ -217,15 +268,20 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
                     mysqlConnection.Execute(deleteRoomManagementCommand, deleteRoomManagementCommandParameters);
                     foreach (var roomManagement in teacher.RoomManagementList)
                     {
+                        // Chuẩn bị câu lệnh INSERT INTO
                         string insertRoomManagementCommand = "INSERT INTO roommanagement(RoomManagementID, TeacherID, RoomID, CreatedDate, CreatedBy)" +
                             "VALUES(@RoomManagementID, @TeacherID ,@SubjectID ,@CreatedDate ,@CreatedBy); ";
                         var roomManagementParameters = new DynamicParameters();
+
+                        // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
                         roomManagementParameters.Add("@RoomManagementID", Guid.NewGuid());
                         roomManagementParameters.Add("@TeacherID", teacherID);
                         roomManagementParameters.Add("@SubjectID", roomManagement.RoomID);
                         roomManagementParameters.Add("@CreatedDate", now);
                         roomManagementParameters.Add("@CreatedBy", teacher.ModifiedBy);
                         int numberOfAffectedRoomManagementRows = mysqlConnection.Execute(insertRoomManagementCommand, roomManagementParameters);
+
+                        // Xử lý dữ liệu trả về
                         if (numberOfAffectedRoomManagementRows < 0)
                         {
                             return StatusCode(StatusCodes.Status400BadRequest, "e002");
@@ -249,12 +305,19 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
         {
             try
             {
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
                 var mysqlConnection = new MySqlConnection(connectionString);
+
+                // Chuẩn bị câu lệnh DELETE
                 string deleteTeacherCommand = "delete from teacher where TeacherID = @TeacherID";
                 var parameters = new DynamicParameters();
+
+                // Chuẩn bị tham số đầu vào cho câu lệnh DELETE
                 parameters.Add("@TeacherID", teacherID);
                 int numberOfAffectedRows = mysqlConnection.Execute(deleteTeacherCommand, parameters);
+
+                // Xử lý dữ liệu trả về
                 if (numberOfAffectedRows > 0)
                 {
                     return StatusCode(StatusCodes.Status200OK, teacherID);
@@ -280,12 +343,15 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
         {
             try
             {
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
                 var mysqlConnection = new MySqlConnection(connectionString);
                 string storedProcedureName = "Proc_Teacher_GetByTeacherID";
                 var parameters = new DynamicParameters();
                 parameters.Add("@v_TeacherID", teacherID);
                 var teacher = mysqlConnection.QueryFirstOrDefault<Teacher>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+
+                // Xử lý dữ liệu trả về
                 if (teacher != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, teacher);
@@ -312,10 +378,12 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
         {
             try
             {
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
                 var mysqlConnection = new MySqlConnection(connectionString);
                 string storedProcedureName = "Proc_Teacher_GetMaxCode";
                 string maxTeacherCode = mysqlConnection.QueryFirstOrDefault<string>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
+                // Xử lý dữ liệu trả về
                 if (maxTeacherCode != null)
                 {
                     Console.WriteLine(maxTeacherCode);

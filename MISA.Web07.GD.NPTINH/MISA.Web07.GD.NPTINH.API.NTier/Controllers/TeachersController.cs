@@ -35,6 +35,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             try
             {
                 int numberOfAffectedRows = _teacherBL.DeleteTeacherByID(teacherID);
+                // Xử lý kết quả trả về từ DB
                 if (numberOfAffectedRows > 0)
                 {
                     return StatusCode(StatusCodes.Status200OK, teacherID);
@@ -64,6 +65,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             try
             {
                 string maxTeacherCode = _teacherBL.GetMaxCode();
+                // Xử lý kết quả trả về từ DB
                 if (maxTeacherCode != null)
                 {
                     string newTeacherCode = "SHCB" + (Int64.Parse(maxTeacherCode.Substring(4)) + 1).ToString();
@@ -92,6 +94,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             try
             {
                 var teacher = _teacherBL.GetTeacherByID(teacherID);
+                // Xử lý kết quả trả về từ DB
                 if (teacher != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, teacher);
@@ -106,6 +109,43 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 Console.WriteLine(ex.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, "e001");
 
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách cán bộ giáo viên có lọc và phân trang
+        /// </summary>
+        /// <param name="keyword">Từ khóa muốn tìm kiếm</param>
+        /// <param name="pageSize">Số bản ghi 1 trang</param>
+        /// <param name="pageNumber">Thứ tự trang</param>
+        /// <returns>
+        /// Một đối tượng gồm:
+        /// + Danh sách cán bộ/giáo viên thỏa mãn điều kiện lọc và phân trang
+        /// + Tổng số cán bộ/giáo viên thỏa mãn điều kiện
+        /// </returns>
+        /// Created by:NPTINH (25/08/2022)
+        [HttpGet("filter")]
+        public IActionResult FilterTeachers(
+            [FromQuery] string? keyword,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] int pageNumber = 1)
+        {
+            try
+            {
+                var pagingData = _teacherBL.FilterTeacher(keyword, pageSize, pageNumber);
+                if (pagingData != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, pagingData);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
         }
     }

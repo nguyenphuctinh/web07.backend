@@ -82,7 +82,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// <summary>
         /// Người tạo
         /// </summary>
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         /// <summary>
         /// Ngày sửa
@@ -92,7 +92,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// <summary>
         /// Người sửa
         /// </summary>
-        public string ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         #endregion
     }
 }

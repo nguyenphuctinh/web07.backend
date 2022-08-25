@@ -1,4 +1,5 @@
 ﻿using MISA.Web07.GD.NPTINH.API.Entities;
+using MISA.Web07.GD.NPTINH.API.Entities.DTO;
 
 namespace MISA.Web07.GD.NPTINH.DL
 {
@@ -26,5 +27,19 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// <returns>Đối tượng cán bộ/giáo viên muốn lấy thông tin chi tiết</returns>
         /// Created by: NPTINH (23/08/2022)
         public Teacher GetTeacherByID(Guid teacherID);
+
+        /// <summary>
+        /// Lấy danh sách cán bộ giáo viên có lọc và phân trang
+        /// </summary>
+        /// <param name="keyword">Từ khóa muốn tìm kiếm</param>
+        /// <param name="pageSize">Số bản ghi 1 trang</param>
+        /// <param name="pageNumber">Thứ tự trang</param>
+        /// <returns>
+        /// Một đối tượng gồm:
+        /// + Danh sách cán bộ/giáo viên thỏa mãn điều kiện lọc và phân trang
+        /// + Tổng số cán bộ/giáo viên thỏa mãn điều kiện
+        /// </returns>
+        /// Created by:NPTINH (25/08/2022)
+        public PagingData<Teacher>? FilterTeacher(string? keyword, int pageSize, int pageNumber);
     }
 }

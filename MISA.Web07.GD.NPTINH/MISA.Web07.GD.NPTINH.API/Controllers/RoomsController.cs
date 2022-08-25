@@ -8,6 +8,11 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
+        /// <summary>
+        /// API lấy tất cả kho, phòng
+        /// </summary>
+        /// <returns>Trả về danh sách kho, phòng</returns>
+        /// Created by: NPTINH (18/08/2022)
         [HttpGet]
         public IActionResult GetAllRooms()
         {

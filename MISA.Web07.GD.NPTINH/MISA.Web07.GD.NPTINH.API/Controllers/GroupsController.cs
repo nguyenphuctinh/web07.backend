@@ -8,6 +8,11 @@ namespace MISA.Web07.GD.NPTINH.API.Controllers
     [ApiController]
     public class GroupsController : ControllerBase
     {
+        /// <summary>
+        /// API lấy tất cả tổ bộ môn
+        /// </summary>
+        /// <returns>Trả về danh sách tổ bộ môn</returns>
+        /// Created by: NPTINH (18/08/2022)
         [HttpGet]
         public IActionResult GetAllGroups()
         {

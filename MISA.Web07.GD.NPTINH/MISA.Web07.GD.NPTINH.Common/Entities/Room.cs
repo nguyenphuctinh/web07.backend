@@ -1,8 +1,11 @@
-﻿namespace MISA.Web07.GD.NPTINH.API.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MISA.Web07.GD.NPTINH.API.Entities
 {
     /// <summary>
     /// Kho, phòng
     /// </summary>
+    [Table("room")]
     public class Room
     {
         #region Property
@@ -29,7 +32,7 @@
         /// <summary>
         /// Người tạo
         /// </summary>
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         /// <summary>
         /// Ngày sửa
@@ -39,7 +42,7 @@
         /// <summary>
         /// Người sửa
         /// </summary>
-        public string ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
         #endregion
     }
 }

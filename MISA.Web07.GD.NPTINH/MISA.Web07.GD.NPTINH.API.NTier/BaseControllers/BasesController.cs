@@ -34,7 +34,53 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         {
             try
             {
+
                 return StatusCode(StatusCodes.Status200OK, _baseBL.GetAllRecords());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+        }
+
+        /// <summary>
+        /// Thêm mới một bản ghi
+        /// </summary>
+        /// <param name="record">Đối tượng bản ghi cần thêm mới</param>
+        /// <returns>ID bản ghi được thêm mới</returns>
+        /// Created by: NPTINH (25/08/2022)
+        [HttpPost]
+        public IActionResult InsertOneRecord([FromBody] T record)
+        {
+            try
+            {
+                Guid newID = _baseBL.InsertOneRecord(record);
+                // Xử lý kết quả trả về
+                if (newID != Guid.Empty)
+                {
+                    return StatusCode(StatusCodes.Status201Created, newID);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+        }
+
+        [HttpPut("{recordID}")]
+        public IActionResult UpdateOneRecord([FromBody] T record, [FromRoute] Guid recordID)
+        {
+            try
+            {
+                var updatedRecordID = _baseBL.UpdateOneRecord(record, recordID);
+                if (updatedRecordID != Guid.Empty)
+                {
+                    return StatusCode(StatusCodes.Status200OK, updatedRecordID);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
             }
             catch (Exception ex)
             {

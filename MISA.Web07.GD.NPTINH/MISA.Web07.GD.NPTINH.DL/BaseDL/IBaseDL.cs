@@ -7,15 +7,24 @@
         /// </summary>
         /// <returns>Trả về tất cả bản ghi</returns>
         /// Created by: NPTINH (23/08/2022)
-        public IEnumerable<dynamic> GetAllRecords();
+        public List<T> GetAllRecords();
 
         /// <summary>
         /// Thêm mới một bản ghi
         /// </summary>
         /// <param name="record">Đối tượng bản ghi cần thêm mới</param>
-        /// <returns>Số bản ghi bị ảnh hưởng (Thêm mới thành công thì sẽ trả về 1 bản ghi bị ảnh hưởng)</returns>
+        /// <returns>ID bản ghi đã được thêm mới (Nếu thêm mới thất bại trả về Empty Guid)</returns>
         /// Created by: NPTINH (25/08/2022)
         public Guid InsertOneRecord(T record);
+
+        /// <summary>
+        /// Sửa một bản ghi
+        /// </summary>
+        /// <param name="record">Đối tượng bản ghi muốn sửa</param>
+        /// <param name="recordID">ID bản ghi muốn sửa</param>
+        /// <returns>ID bản ghi được sửa (Nếu sửa thất bại trả về Empty Guid)</returns>
+        /// Created by: NPTINH (25/08/2022)
+        public Guid UpdateOneRecord(T record, Guid recordID);
 
     }
 }

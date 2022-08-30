@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
 namespace MISA.Web07.GD.NPTINH.Common.Utilities
@@ -18,6 +19,18 @@ namespace MISA.Web07.GD.NPTINH.Common.Utilities
                 tableName = tableAttributes.First().Name;
             }
             return tableName;
+        }
+
+        public static PropertyInfo? GetKeyFieldName<T>()
+        {
+            var key = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), true).Length != 0);
+            return key;
+        }
+
+        public static IEnumerable<dynamic> GetColumnAttributeProperties<T>()
+        {
+            var properties = typeof(T).GetProperties().Where(p => p.GetCustomAttributes(typeof(ColumnAttribute), true).Length != 0);
+            return properties;
         }
     }
 }

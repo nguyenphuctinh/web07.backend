@@ -87,7 +87,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// <param name="recordID">ID bản ghi muốn sửa</param>
         /// <returns>ID bản ghi được sửa (Nếu sửa thất bại trả về Empty Guid)</returns>
         /// Created by: NPTINH (25/08/2022)
-        public Guid UpdateOneRecord(T record, Guid recordID)
+        public virtual Guid UpdateOneRecord(T record, Guid recordID)
         {
             // Khai báo tên stored procedure INSERT
             string tableName = EntityUtilities.GetTableName<T>();
@@ -116,6 +116,29 @@ namespace MISA.Web07.GD.NPTINH.DL
                     result = recordID;
                 }
                 return result;
+            }
+        }
+
+        /// <summary>
+        /// Xóa bản ghi theo ID
+        /// </summary>
+        /// <param name="recordID">ID bản ghi</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int DeleteOneRecordByID(Guid recordID)
+        {
+            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            {
+                // Khai báo tên stored procedure
+                string tableName = EntityUtilities.GetTableName<T>();
+                string storedProcedureName = $"Proc_{tableName}_DeleteOne";
+                // Chuẩn bị tham số đầu vào cho store procedure
+                var parameters = new DynamicParameters();
+                var key = EntityUtilities.GetKeyFieldName<T>();
+                parameters.Add($"v_{key.Name}", recordID);
+                // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
+                int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                return numberOfAffectedRows;
             }
         }
     }

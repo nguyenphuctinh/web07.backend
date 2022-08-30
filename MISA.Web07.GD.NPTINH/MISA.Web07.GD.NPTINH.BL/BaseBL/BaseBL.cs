@@ -51,6 +51,17 @@ namespace MISA.Web07.GD.NPTINH.BL
             return _baseDL.UpdateOneRecord(record, recordID);
         }
 
+        /// <summary>
+        /// Xóa bản ghi theo ID
+        /// </summary>
+        /// <param name="recordID">ID bản ghi</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int DeleteOneRecordByID(Guid recordID)
+        {
+            return _baseDL.DeleteOneRecordByID(recordID);
+        }
+
         #endregion
     }
 }

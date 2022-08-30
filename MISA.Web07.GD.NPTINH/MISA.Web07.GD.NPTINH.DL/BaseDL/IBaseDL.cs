@@ -26,5 +26,14 @@
         /// Created by: NPTINH (25/08/2022)
         public Guid UpdateOneRecord(T record, Guid recordID);
 
+
+        /// <summary>
+        /// Xóa bản ghi theo ID
+        /// </summary>
+        /// <param name="recordID">ID bản ghi</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int DeleteOneRecordByID(Guid recordID);
+
     }
 }

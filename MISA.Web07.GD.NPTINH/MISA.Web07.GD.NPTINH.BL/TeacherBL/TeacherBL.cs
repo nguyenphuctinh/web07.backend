@@ -21,16 +21,7 @@ namespace MISA.Web07.GD.NPTINH.BL
 
         #endregion
 
-        /// <summary>
-        /// Xóa cán bộ/giáo viên theo ID cán bộ/giáo viên
-        /// </summary>
-        /// <param name="teacherID">ID cán bộ/giáo viên</param>
-        /// <returns>Số bản ghi bị ảnh hưởng</returns>
-        /// Created by: NPTINH (23/08/2022)
-        public int DeleteTeacherByID(Guid teacherID)
-        {
-            return _teacherDL.DeleteTeacherByID(teacherID);
-        }
+
 
         /// <summary>
         /// Lấy danh sách cán bộ giáo viên có lọc và phân trang

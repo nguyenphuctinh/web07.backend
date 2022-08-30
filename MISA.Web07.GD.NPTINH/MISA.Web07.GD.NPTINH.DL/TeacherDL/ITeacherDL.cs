@@ -13,14 +13,6 @@ namespace MISA.Web07.GD.NPTINH.DL
         public string GetMaxCode();
 
         /// <summary>
-        /// Xóa cán bộ/giáo viên theo ID cán bộ/giáo viên
-        /// </summary>
-        /// <param name="teacherID">ID cán bộ/giáo viên</param>
-        /// <returns>Số bản ghi bị ảnh hưởng</returns>
-        /// Created by: NPTINH (23/08/2022)
-        public int DeleteTeacherByID(Guid teacherID);
-
-        /// <summary>
         /// API Lấy thông tin chi tiết của 1 cán bộ/giáo viên
         /// </summary>
         /// <param name="teacherID">ID của cán bộ/giáo viên muốn lấy thông tin chi tiết</param>
@@ -41,5 +33,14 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// </returns>
         /// Created by:NPTINH (25/08/2022)
         public PagingData<Teacher>? FilterTeacher(string? keyword, int pageSize, int pageNumber);
+
+        /// <summary>
+        /// Sửa một bản ghi
+        /// </summary>
+        /// <param name="record">Đối tượng bản ghi muốn sửa</param>
+        /// <param name="recordID">ID bản ghi muốn sửa</param>
+        /// <returns>ID bản ghi được sửa (Nếu sửa thất bại trả về Empty Guid)</returns>
+        /// Created by: NPTINH (25/08/2022)
+        public Guid UpdateOneRecord(Teacher teacher, Guid teacherID);
     }
 }

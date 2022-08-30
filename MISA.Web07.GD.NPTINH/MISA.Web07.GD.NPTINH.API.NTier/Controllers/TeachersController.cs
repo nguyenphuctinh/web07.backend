@@ -23,34 +23,6 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
         }
 
         #endregion
-        /// <summary>
-        /// Xóa cán bộ/giáo viên theo ID cán bộ/giáo viên
-        /// </summary>
-        /// <param name="teacherID">ID cán bộ/giáo viên</param>
-        /// <returns>Mã cán bộ giáo viên đã xóa</returns>
-        /// Created by: NPTINH (23/08/2022)
-        [HttpDelete("{teacherID}")]
-        public IActionResult DeleteTeacherByID([FromRoute] Guid teacherID)
-        {
-            try
-            {
-                int numberOfAffectedRows = _teacherBL.DeleteTeacherByID(teacherID);
-                // Xử lý kết quả trả về từ DB
-                if (numberOfAffectedRows > 0)
-                {
-                    return StatusCode(StatusCodes.Status200OK, teacherID);
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
-            }
-        }
 
         /// <summary>
         /// Lấy mã cán bộ/giáo viên tự động tăng

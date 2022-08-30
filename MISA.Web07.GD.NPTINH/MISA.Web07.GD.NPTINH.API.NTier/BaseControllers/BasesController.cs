@@ -89,6 +89,35 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             }
         }
 
+        /// <summary>
+        /// Xóa bản ghi theo ID
+        /// </summary>
+        /// <param name="recordID">ID bản ghi</param>
+        /// <returns>ID bản ghi đã xóa</returns>
+        /// Created by: NPTINH (23/08/2022)
+        [HttpDelete("{recordID}")]
+        public IActionResult DeleteOneRecord([FromRoute] Guid recordID)
+        {
+            try
+            {
+                int numberOfAffectedRows = _baseBL.DeleteOneRecordByID(recordID);
+                // Xử lý kết quả trả về từ DB
+                if (numberOfAffectedRows > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, recordID);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+        }
+
         #endregion
     }
 }

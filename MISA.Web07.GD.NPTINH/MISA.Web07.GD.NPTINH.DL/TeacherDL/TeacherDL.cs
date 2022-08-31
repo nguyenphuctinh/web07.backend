@@ -194,7 +194,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 var propertyValue = property.GetValue(teacher);
                 parameters.Add(propertyName, propertyValue);
             }
-            var key = EntityUtilities.GetKeyFieldName<Teacher>();
+            var key = EntityUtilities.GetKeyProperty<Teacher>();
             parameters.Add($"v_{key.Name}", teacherID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
@@ -213,6 +213,51 @@ namespace MISA.Web07.GD.NPTINH.DL
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
                         InsertSubjectManagement(subjectManagement);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public override Guid InsertOneRecord(Teacher teacher)
+        {
+            // Khai báo tên stored procedure INSERT
+            string insertStoredProcedureName = $"Proc_Teacher_InsertOne";
+
+            // Chuẩn bị tham số đầu vào của stored procedure
+            var properties = EntityUtilities.GetColumnAttributeProperties<Teacher>();
+            var parameters = new DynamicParameters();
+            foreach (var property in properties)
+            {
+                string propertyName = $"v_{property.Name}";
+                var propertyValue = property.GetValue(teacher);
+                parameters.Add(propertyName, propertyValue);
+            }
+            var key = EntityUtilities.GetKeyProperty<Teacher>();
+            var newID = Guid.NewGuid();
+            parameters.Add($"v_{key.Name}", newID);
+            // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
+            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            {
+                int numberOfAffectedRows = mySqlConnection.Execute(insertStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                var result = Guid.Empty;
+                if (numberOfAffectedRows > 0)
+                {
+
+                    if (newID != null)
+                    {
+                        foreach (var subjectManagement in teacher.SubjectManagementList)
+                        {
+                            subjectManagement.TeacherID = (Guid)newID;
+                            InsertSubjectManagement(subjectManagement);
+                        }
+                        foreach (var roomManagement in teacher.RoomManagementList)
+                        {
+                            roomManagement.TeacherID = (Guid)newID;
+
+                            InsertRoomManagement(roomManagement);
+                        }
+                        result = (Guid)newID;
                     }
                 }
                 return result;
@@ -307,5 +352,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 return numberOfAffectedRows;
             }
         }
+
+
     }
 }

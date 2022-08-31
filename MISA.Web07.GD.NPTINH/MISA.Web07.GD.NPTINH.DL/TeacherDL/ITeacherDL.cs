@@ -34,13 +34,6 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by:NPTINH (25/08/2022)
         public PagingData<Teacher>? FilterTeacher(string? keyword, int pageSize, int pageNumber);
 
-        /// <summary>
-        /// Sửa một bản ghi
-        /// </summary>
-        /// <param name="record">Đối tượng bản ghi muốn sửa</param>
-        /// <param name="recordID">ID bản ghi muốn sửa</param>
-        /// <returns>ID bản ghi được sửa (Nếu sửa thất bại trả về Empty Guid)</returns>
-        /// Created by: NPTINH (25/08/2022)
-        public Guid UpdateOneRecord(Teacher teacher, Guid teacherID);
+
     }
 }

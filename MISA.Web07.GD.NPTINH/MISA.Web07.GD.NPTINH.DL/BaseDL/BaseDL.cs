@@ -24,7 +24,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             {
                 // Khai báo tên stored procedure INSERT
                 string tableName = EntityUtilities.GetTableName<T>();
-                EntityUtilities.GetKeyFieldName<T>();
+                EntityUtilities.GetKeyProperty<T>();
 
                 string insertStoredProcedureName = $"Proc_{tableName}_SelectAll";
                 // Thực hiện gọi vào DB để chạy câu lệnh stored procedure 
@@ -44,7 +44,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// <param name="record">Đối tượng bản ghi cần thêm mới</param>
         /// <returns>ID bản ghi đã được thêm mới (Nếu thêm mới thất bại trả về Empty Guid)</returns>
         /// Created by: NPTINH (25/08/2022)
-        public Guid InsertOneRecord(T record)
+        public virtual Guid InsertOneRecord(T record)
         {
             // Khai báo tên stored procedure INSERT
             string tableName = EntityUtilities.GetTableName<T>();
@@ -103,7 +103,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 var propertyValue = property.GetValue(record);
                 parameters.Add(propertyName, propertyValue);
             }
-            var key = EntityUtilities.GetKeyFieldName<T>();
+            var key = EntityUtilities.GetKeyProperty<T>();
             parameters.Add($"v_{key.Name}", recordID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             int numberOfAffectedRows = 0;
@@ -134,7 +134,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 string storedProcedureName = $"Proc_{tableName}_DeleteOne";
                 // Chuẩn bị tham số đầu vào cho store procedure
                 var parameters = new DynamicParameters();
-                var key = EntityUtilities.GetKeyFieldName<T>();
+                var key = EntityUtilities.GetKeyProperty<T>();
                 parameters.Add($"v_{key.Name}", recordID);
                 // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
                 int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);

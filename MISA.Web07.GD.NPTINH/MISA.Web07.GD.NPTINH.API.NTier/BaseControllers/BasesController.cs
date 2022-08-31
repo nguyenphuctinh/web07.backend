@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MISA.Web07.GD.NPTINH.BL;
+using MySqlConnector;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
 {
@@ -62,6 +63,14 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                     return StatusCode(StatusCodes.Status201Created, newID);
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+            catch (MySqlException mySqlException)
+            {
+                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "e003");
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
             catch (Exception ex)
             {

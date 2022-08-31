@@ -21,7 +21,7 @@ namespace MISA.Web07.GD.NPTINH.Common.Utilities
             return tableName;
         }
 
-        public static PropertyInfo? GetKeyFieldName<T>()
+        public static PropertyInfo? GetKeyProperty<T>()
         {
             var key = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), true).Length != 0);
             return key;

@@ -207,11 +207,13 @@ namespace MISA.Web07.GD.NPTINH.DL
                     DeleteRoomManagementByTeacherID(teacherID);
                     foreach (var roomManagement in teacher.RoomManagementList)
                     {
+                        roomManagement.TeacherID = teacherID;
                         InsertRoomManagement(roomManagement);
                     }
                     DeleteSubjectManagementByTeacherID(teacherID);
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
+                        subjectManagement.TeacherID = teacherID;
                         InsertSubjectManagement(subjectManagement);
                     }
                 }

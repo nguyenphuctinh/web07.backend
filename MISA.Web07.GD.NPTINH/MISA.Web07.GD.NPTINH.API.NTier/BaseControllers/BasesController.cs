@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MISA.Web07.GD.NPTINH.API.NTier.Helpers;
 using MISA.Web07.GD.NPTINH.BL;
 using MySqlConnector;
 
@@ -56,6 +57,13 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         {
             try
             {
+                // Validate entity
+                var validateResult = HandleError.ValidateEntity(ModelState, HttpContext);
+                // Xử lý kết quả trả về
+                if (validateResult != null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, validateResult);
+                }
                 Guid newID = _baseBL.InsertOneRecord(record);
                 // Xử lý kết quả trả về
                 if (newID != Guid.Empty)

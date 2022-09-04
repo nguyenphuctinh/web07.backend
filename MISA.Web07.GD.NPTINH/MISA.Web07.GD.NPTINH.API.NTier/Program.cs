@@ -1,4 +1,4 @@
-using MISA.Web07.GD.NPTINH.BL;
+﻿using MISA.Web07.GD.NPTINH.BL;
 using MISA.Web07.GD.NPTINH.BL.RoomBL;
 using MISA.Web07.GD.NPTINH.BL.SubjectBL;
 using MISA.Web07.GD.NPTINH.DL;
@@ -6,8 +6,7 @@ using MISA.Web07.GD.NPTINH.DL.RoomDL;
 using MISA.Web07.GD.NPTINH.DL.SubjectDL;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+// Dependency injection
 builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
 builder.Services.AddScoped<ITeacherDL, TeacherDL>();
@@ -18,6 +17,13 @@ builder.Services.AddScoped<ITeacherBL, TeacherBL>();
 builder.Services.AddScoped<IGroupBL, GroupBL>();
 builder.Services.AddScoped<ISubjectBL, SubjectBL>();
 builder.Services.AddScoped<IRoomBL, RoomBL>();
+
+// Validate entity sử dụng ModelState
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>

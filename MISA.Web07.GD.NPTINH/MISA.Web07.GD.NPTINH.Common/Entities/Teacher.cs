@@ -1,6 +1,4 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MISA.Web07.GD.NPTINH.API.Entities
@@ -38,20 +36,20 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// </summary>
         [StringLength(10, ErrorMessage = "e007")]
         [Column("PhoneNumber")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         /// <summary>
         /// Email
         /// </summary>
         [EmailAddress(ErrorMessage = "e006")]
         [Column("Email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// ID tổ bộ môn
         /// </summary>
         [Column("GroupID")]
-        public Guid GroupID { get; set; }
+        public Guid? GroupID { get; set; }
 
         /// <summary>
         /// Tên tổ bộ môn

@@ -62,6 +62,7 @@ namespace MISA.Web07.GD.NPTINH.BL
             return _baseDL.DeleteOneRecordByID(recordID);
         }
 
+
         #endregion
     }
 }

@@ -36,13 +36,11 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         {
             try
             {
-
                 return StatusCode(StatusCodes.Status200OK, _baseBL.GetAllRecords());
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -70,20 +68,16 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status201Created, newID);
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
             catch (MySqlException mySqlException)
             {
-                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e003");
-                }
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateCodeErrorResult(mySqlException, HttpContext));
+
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -92,17 +86,23 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         {
             try
             {
+                // Validate entity
+                var validateResult = HandleError.ValidateEntity(ModelState, HttpContext);
+                // Xử lý kết quả trả về
+                if (validateResult != null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, validateResult);
+                }
                 var updatedRecordID = _baseBL.UpdateOneRecord(record, recordID);
                 if (updatedRecordID != Guid.Empty)
                 {
                     return StatusCode(StatusCodes.Status200OK, updatedRecordID);
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -125,13 +125,12 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 

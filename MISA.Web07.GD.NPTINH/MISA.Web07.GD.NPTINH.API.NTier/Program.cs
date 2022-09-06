@@ -24,6 +24,8 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
+// Lấy dữ liệu connection string từ file appsettings
+DatabaseContext.ConnectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>

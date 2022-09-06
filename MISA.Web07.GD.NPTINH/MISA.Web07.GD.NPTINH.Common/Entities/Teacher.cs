@@ -34,7 +34,8 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [StringLength(10, ErrorMessage = "e007")]
+
+        [StringLength(13, MinimumLength = 10, ErrorMessage = "e007")]
         [Column("PhoneNumber")]
         public string? PhoneNumber { get; set; }
 

@@ -22,7 +22,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (25/08/2022)
         public PagingData<Teacher>? FilterTeacher(string? keyword, int pageSize, int pageNumber)
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_Teacher_GetPaging";
@@ -85,7 +85,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (25/08/2022)
         private List<SubjectManagement>? GetSubjectManagementByTeacherID(Guid teacherID)
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_SubjectManagement_GetSubjectManagementList";
@@ -114,7 +114,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (25/08/2022)
         private List<RoomManagement>? GetRoomManagementByTeacherID(Guid teacherID)
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_RoomManagement_GetRoomManagementList";
@@ -141,7 +141,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH(23/08/2022)
         public string GetMaxCode()
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_Teacher_GetMaxCode";
@@ -159,7 +159,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (16/08/2022)
         public Teacher GetTeacherByID(Guid teacherID)
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_Teacher_GetByTeacherID";
@@ -197,7 +197,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             var key = EntityUtilities.GetKeyProperty<Teacher>();
             parameters.Add($"v_{key.Name}", teacherID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 var result = Guid.Empty;
@@ -239,7 +239,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             var newID = Guid.NewGuid();
             parameters.Add($"v_{key.Name}", newID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(insertStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 var result = Guid.Empty;
@@ -280,7 +280,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             var parameters = new DynamicParameters();
             parameters.Add("v_TeacherID", teacherID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;
@@ -306,7 +306,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             }
             insertParameters.Add("v_SubjectManagementID", Guid.NewGuid());
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(insertStoredProcedureName, insertParameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;
@@ -321,7 +321,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             var parameters = new DynamicParameters();
             parameters.Add("v_TeacherID", teacherID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;
@@ -348,7 +348,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             }
             insertParameters.Add("v_RoomManagementID", Guid.NewGuid());
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(insertStoredProcedureName, insertParameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;

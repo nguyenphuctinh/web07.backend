@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MISA.Web07.GD.NPTINH.API.Entities;
 using MISA.Web07.GD.NPTINH.API.NTier.BaseControllers;
+using MISA.Web07.GD.NPTINH.API.NTier.Helpers;
 using MISA.Web07.GD.NPTINH.BL;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
@@ -48,10 +49,9 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
         /// <summary>
@@ -73,14 +73,12 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
-
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -111,13 +109,12 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
     }

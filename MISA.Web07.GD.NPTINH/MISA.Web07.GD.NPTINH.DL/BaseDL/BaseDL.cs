@@ -7,12 +7,6 @@ namespace MISA.Web07.GD.NPTINH.DL
 {
     public class BaseDL<T> : IBaseDL<T>
     {
-        #region Field
-
-        protected const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=misa.web07.gd.nptinh;Uid=root;Pwd=123;";
-
-        #endregion
-
         /// <summary>
         /// Lấy tất cả bản ghi  
         /// </summary>
@@ -20,7 +14,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (23/08/2022)
         public List<T>? GetAllRecords()
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Khai báo tên stored procedure INSERT
                 string tableName = EntityUtilities.GetTableName<T>();
@@ -62,7 +56,7 @@ namespace MISA.Web07.GD.NPTINH.DL
 
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             int numberOfAffectedRows = 0;
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 numberOfAffectedRows = mySqlConnection.Execute(insertStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 var result = Guid.Empty;
@@ -107,7 +101,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             parameters.Add($"v_{key.Name}", recordID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             int numberOfAffectedRows = 0;
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 var result = Guid.Empty;
@@ -127,7 +121,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (23/08/2022)
         public int DeleteOneRecordByID(Guid recordID)
         {
-            using (var mySqlConnection = new MySqlConnection(CONNECTION_STRING))
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
                 // Khai báo tên stored procedure
                 string tableName = EntityUtilities.GetTableName<T>();

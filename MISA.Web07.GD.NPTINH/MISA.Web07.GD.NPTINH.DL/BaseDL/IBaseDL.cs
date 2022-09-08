@@ -35,5 +35,11 @@
         /// Created by: NPTINH (23/08/2022)
         public int DeleteOneRecordByID(Guid recordID);
 
+        /// <summary>
+        /// Lấy số lượng bản ghi
+        /// </summary>
+        /// <returns>Số lượng bản ghi</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int GetNumberOfRecords();
     }
 }

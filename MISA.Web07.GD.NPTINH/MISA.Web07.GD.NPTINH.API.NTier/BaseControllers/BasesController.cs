@@ -81,6 +81,12 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             }
         }
 
+        /// <summary>
+        /// Chỉnh sửa một bản ghi
+        /// </summary>
+        /// <param name="record">Đối tượng bản ghi cập nhật</param>
+        /// <param name="recordID">ID bản ghi cần cập nhật</param>
+        /// <returns>ID bản ghi vừa cập nhật</returns>
         [HttpPut("{recordID}")]
         public IActionResult UpdateOneRecord([FromBody] T record, [FromRoute] Guid recordID)
         {
@@ -94,6 +100,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                     return StatusCode(StatusCodes.Status400BadRequest, validateResult);
                 }
                 var updatedRecordID = _baseBL.UpdateOneRecord(record, recordID);
+                // Xử lý kết quả trả về
                 if (updatedRecordID != Guid.Empty)
                 {
                     return StatusCode(StatusCodes.Status200OK, updatedRecordID);
@@ -127,6 +134,24 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
                 }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+            }
+        }
+
+        /// <summary>
+        /// API lấy số lượng bản ghi
+        /// </summary>
+        /// <returns>Số lượng bản ghi</returns>
+        /// Created by: NPTINH (23/08/2022)
+        [HttpGet("number-of-records")]
+        public IActionResult GetNumberOfRecords()
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _baseBL.GetNumberOfRecords());
             }
             catch (Exception exception)
             {

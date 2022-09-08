@@ -181,7 +181,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (25/08/2022)
         public override Guid UpdateOneRecord(Teacher teacher, Guid teacherID)
         {
-            // Khai báo tên stored procedure INSERT
+            // Khai báo tên stored procedure UPDATE
             string updateStoredProcedureName = $"Proc_Teacher_UpdateOne";
 
             // Chuẩn bị tham số đầu vào của stored procedure
@@ -274,15 +274,15 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by: NPTINH (25/08/2022)
         private int DeleteSubjectManagementByTeacherID(Guid teacherID)
         {
-            // Khai báo tên stored procedure INSERT
-            string updateStoredProcedureName = $"Proc_SubjectManagement_DeleteByTeacherID";
+            // Khai báo tên stored procedure
+            string deleteStoreProcedureName = $"Proc_SubjectManagement_DeleteByTeacherID";
             // Chuẩn bị tham số đầu vào của stored procedure
             var parameters = new DynamicParameters();
             parameters.Add("v_TeacherID", teacherID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
-                int numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                int numberOfAffectedRows = mySqlConnection.Execute(deleteStoreProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;
             }
         }
@@ -316,14 +316,14 @@ namespace MISA.Web07.GD.NPTINH.DL
         private int DeleteRoomManagementByTeacherID(Guid teacherID)
         {
             // Khai báo tên stored procedure
-            string updateStoredProcedureName = $"Proc_RoomManagement_DeleteByTeacherID";
+            string deleteStoreProcedureName = $"Proc_RoomManagement_DeleteByTeacherID";
             // Chuẩn bị tham số đầu vào của stored procedure
             var parameters = new DynamicParameters();
             parameters.Add("v_TeacherID", teacherID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
-                int numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                int numberOfAffectedRows = mySqlConnection.Execute(deleteStoreProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;
             }
         }

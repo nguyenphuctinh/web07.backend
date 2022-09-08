@@ -135,5 +135,24 @@ namespace MISA.Web07.GD.NPTINH.DL
                 return numberOfAffectedRows;
             }
         }
+
+        /// <summary>
+        /// Lấy số lượng bản ghi
+        /// </summary>
+        /// <returns>Số lượng bản ghi</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int GetNumberOfRecords()
+        {
+            using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            {
+                // Khai báo tên stored procedure
+                string tableName = EntityUtilities.GetTableName<T>();
+                string storedProcedureName = $"Proc_{tableName}_GetNumberOfRecords";
+                // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
+                int numberOfRecord = mySqlConnection.QueryFirstOrDefault<int>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
+                return numberOfRecord;
+
+            }
+        }
     }
 }

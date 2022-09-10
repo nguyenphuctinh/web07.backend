@@ -6,7 +6,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
     /// <summary>
     /// Cán bộ/giáo viên
     /// </summary>
-    [Table("teacher")]
+    [Table("Teacher")]
     public class Teacher
     {
         #region Property

@@ -11,13 +11,18 @@
         Exception = 1,
 
         /// <summary>
+        /// Lỗi do exception chưa xác định được
+        /// </summary>
+        Database = 2,
+
+        /// <summary>
         /// Lỗi do validate dữ liệu thất bại
         /// </summary>
-        Validate = 2,
+        Validate = 3,
 
         /// <summary>
         /// Lỗi do trùng mã
         /// </summary>
-        DuplicateCode = 3
+        DuplicateCode = 4
     }
 }

@@ -40,5 +40,13 @@
         /// <returns>Số lượng bản ghi</returns>
         /// Created by: NPTINH (23/08/2022)
         public int GetNumberOfRecords();
+
+        /// <summary>
+        /// Xóa nhiều bản ghi 
+        /// </summary>
+        /// <param name="recordIDs">Danh sách ID bản ghi</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (23/08/2022)
+        public int DeleteMultipleRecords(string recordIDs);
     }
 }

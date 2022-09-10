@@ -46,6 +46,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// </summary>
         [Column("CreatedBy")]
         public string? CreatedBy { get; set; }
+
         #endregion
     }
 }

@@ -21,8 +21,6 @@ namespace MISA.Web07.GD.NPTINH.BL
 
         #endregion
 
-
-
         /// <summary>
         /// Lấy danh sách cán bộ giáo viên có lọc và phân trang
         /// </summary>

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MISA.Web07.GD.NPTINH.API.NTier.Helpers;
 using MISA.Web07.GD.NPTINH.BL;
+using MISA.Web07.GD.NPTINH.Common.Entities.DTO;
 using MySqlConnector;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
 {
+
     [Route("api/v1/[controller]")]
     [ApiController]
     public class BasesController<T> : ControllerBase
@@ -152,6 +154,25 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             try
             {
                 return StatusCode(StatusCodes.Status200OK, _baseBL.GetNumberOfRecords());
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+            }
+        }
+
+        [HttpPost("delete-multiple")]
+        public IActionResult DeleteMultipleRecords([FromBody] MultipleObject multipleObject)
+        {
+            try
+            {
+                int numberOfAffectedRows = _baseBL.DeleteMultipleRecords(multipleObject.RecordIDs);
+                if (numberOfAffectedRows > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, multipleObject.RecordIDs);
+
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
             catch (Exception exception)
             {

@@ -1,11 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "nOONe2IznwMUAOliCnlApK3/x4PSINoLSnEyAbYDthMXt4Jgxsen38YTu43oIGX1tvQb/c1MTdZ3js+1lln1HA==",
+  "dgSpecHash": "2dqcNu+zNSO41huEofEz0Emray+vecbrX6PRFuGIN07O2gY/fXAJTC9xgShcnrpZIE17wWiCpvmClywigkVq8w==",
   "success": true,
   "projectFilePath": "D:\\MISA\\Backend\\MISA.Web07.GD.NPTINH\\MISA.Web07.GD.NPTINH.DL\\MISA.Web07.GD.NPTINH.DL.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\closedxml\\0.96.0\\closedxml.0.96.0.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\Asus\\.nuget\\packages\\mysqlconnector\\2.1.12\\mysqlconnector.2.1.12.nupkg.sha512"
+    "C:\\Users\\Asus\\.nuget\\packages\\documentformat.openxml\\2.16.0\\documentformat.openxml.2.16.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\excelnumberformat\\1.1.0\\excelnumberformat.1.1.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\mysqlconnector\\2.1.12\\mysqlconnector.2.1.12.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.drawing.common\\4.5.0\\system.drawing.common.4.5.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

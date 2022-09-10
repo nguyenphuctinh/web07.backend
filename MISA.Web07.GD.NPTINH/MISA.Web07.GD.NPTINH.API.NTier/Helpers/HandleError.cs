@@ -97,7 +97,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
         public static ErrorResult GenerateDatabaseErrorResult(HttpContext httpContext)
         {
             return new ErrorResult(
-               EmisErrorCode.Exception,
+               EmisErrorCode.Database,
                "Có lỗi xảy ra. Vui lòng liên hệ MISA!",
                 new List<string>() { "e002" },
                "https://openapi.misa.com.vn/errorcode/e002",

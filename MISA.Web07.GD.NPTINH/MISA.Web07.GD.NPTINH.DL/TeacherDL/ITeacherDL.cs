@@ -34,6 +34,5 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// Created by:NPTINH (25/08/2022)
         public PagingData<Teacher>? FilterTeacher(string? keyword, int pageSize, int pageNumber);
 
-
     }
 }

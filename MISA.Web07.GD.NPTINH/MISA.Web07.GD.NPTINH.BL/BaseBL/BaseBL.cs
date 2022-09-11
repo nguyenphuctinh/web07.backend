@@ -5,7 +5,9 @@ namespace MISA.Web07.GD.NPTINH.BL
     public class BaseBL<T> : IBaseBL<T>
     {
         #region Field
+
         private IBaseDL<T> _baseDL;
+
         #endregion
 
         #region Constructor

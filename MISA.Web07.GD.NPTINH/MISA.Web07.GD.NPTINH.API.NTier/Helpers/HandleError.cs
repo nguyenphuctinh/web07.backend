@@ -71,11 +71,12 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
         public static ErrorResult? GenerateDuplicateCodeErrorResult(MySqlException mySqlException, HttpContext httpContext)
         {
             Console.WriteLine(mySqlException.Message);
+            // Xử lý khi lỗi trùng mã 
             if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
             {
                 return new ErrorResult(
                     EmisErrorCode.DuplicateCode,
-                    "Trùng mã",
+                    "Số hiệu cán bộ đã tồn tại trong hệ thống vui lòng kiểm tra lại.",
                     new List<string>() { "e003" },
                     "https://openapi.misa.com.vn/errorcode/e003",
                     Activity.Current?.Id ?? httpContext?.TraceIdentifier);

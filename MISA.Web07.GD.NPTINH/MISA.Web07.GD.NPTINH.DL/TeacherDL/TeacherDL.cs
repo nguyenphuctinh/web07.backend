@@ -8,6 +8,8 @@ namespace MISA.Web07.GD.NPTINH.DL
 {
     public class TeacherDL : BaseDL<Teacher>, ITeacherDL
     {
+        #region Method
+
         /// <summary>
         /// Lấy danh sách cán bộ giáo viên có lọc và phân trang
         /// </summary>
@@ -355,6 +357,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             }
         }
 
+        #endregion
 
     }
 }

@@ -7,6 +7,8 @@ namespace MISA.Web07.GD.NPTINH.DL
 {
     public class BaseDL<T> : IBaseDL<T>
     {
+        #region Method
+
         /// <summary>
         /// Lấy tất cả bản ghi  
         /// </summary>
@@ -177,5 +179,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 return numberOfAffectedRows;
             }
         }
+
+        #endregion
     }
 }

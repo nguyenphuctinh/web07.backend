@@ -52,6 +52,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// </summary>
         [Column("ModifiedBy")]
         public string? ModifiedBy { get; set; }
+
         #endregion
     }
 }

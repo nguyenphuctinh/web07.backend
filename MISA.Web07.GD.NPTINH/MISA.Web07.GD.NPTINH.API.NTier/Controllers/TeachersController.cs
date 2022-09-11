@@ -26,6 +26,8 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
 
         #endregion
 
+        #region Method
+
         /// <summary>
         /// Lấy mã cán bộ/giáo viên tự động tăng
         /// </summary>
@@ -145,6 +147,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                     IXLWorksheet worksheet = workbook.Worksheets.Add("Teacher");
                     worksheet.Style.Font.FontName = "Times New Roman";
 
+                    // Set giá trị và style cho tiêu đề
                     worksheet.Cell(1, 1).Value = "DANH SÁCH CÁN BỘ/GIÁO VIÊN";
                     worksheet.Range("A1:I1").Row(1).Merge();
                     worksheet.Range("A1:I1").Row(1).Merge().Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
@@ -287,5 +290,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             }
 
         }
+
+        #endregion
     }
 }

@@ -163,7 +163,7 @@ namespace MISA.Web07.GD.NPTINH.DL
         /// <param name="recordIDs">Danh sách ID bản ghi</param>
         /// <returns>Số bản ghi bị ảnh hưởng</returns>
         /// Created by: NPTINH (23/08/2022)
-        public int DeleteMultipleRecords(string recordIDs)
+        public int DeleteMultipleRecords(List<Guid> recordIDs)
         {
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
@@ -173,7 +173,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 // Chuẩn bị tham số đầu vào cho store procedure
                 var parameters = new DynamicParameters();
                 var key = EntityUtilities.GetKeyProperty<T>();
-                parameters.Add($"v_{key.Name}s", recordIDs);
+                parameters.Add($"v_{key.Name}s", "'" + string.Join("', '", recordIDs) + "'");
                 // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
                 int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return numberOfAffectedRows;

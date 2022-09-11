@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MISA.Web07.GD.NPTINH.API.NTier.Helpers;
 using MISA.Web07.GD.NPTINH.BL;
-using MISA.Web07.GD.NPTINH.Common.Entities.DTO;
 using MySqlConnector;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
@@ -161,15 +160,21 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             }
         }
 
+        /// <summary>
+        /// API xóa nhiều bản ghi
+        /// </summary>
+        /// <param name="recordIDs">Danh sách ID các bản ghi cần xóa</param>
+        /// <returns>Trả về danh sách ID bản ghi đã xóa</returns>
+        /// Created by: NPTINH (23/08/2022)
         [HttpPost("delete-multiple")]
-        public IActionResult DeleteMultipleRecords([FromBody] MultipleObject multipleObject)
+        public IActionResult DeleteMultipleRecords([FromBody] List<Guid> recordIDs)
         {
             try
             {
-                int numberOfAffectedRows = _baseBL.DeleteMultipleRecords(multipleObject.RecordIDs);
+                int numberOfAffectedRows = _baseBL.DeleteMultipleRecords(recordIDs);
                 if (numberOfAffectedRows > 0)
                 {
-                    return StatusCode(StatusCodes.Status200OK, multipleObject.RecordIDs);
+                    return StatusCode(StatusCodes.Status200OK, recordIDs);
 
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));

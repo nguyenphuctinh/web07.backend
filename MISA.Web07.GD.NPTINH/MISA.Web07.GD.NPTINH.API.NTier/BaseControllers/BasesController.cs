@@ -15,7 +15,6 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         private IBaseBL<T> _baseBL;
 
         #endregion
-
         #region Constructor
 
         public BasesController(IBaseBL<T> baseBL)

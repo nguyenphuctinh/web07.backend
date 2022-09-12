@@ -36,6 +36,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 string whereClause = "";
                 if (keyword != null)
                 {
+                    // Thực hiện lọc theo tên, email hoặc số điện thoại
                     whereClause = $"FullName LIKE '%{keyword}%' or Email LIKE '%{keyword}%' or PhoneNumber LIKE '%{keyword}%'";
                 }
                 parameters.Add("@v_Where", whereClause);
@@ -44,6 +45,7 @@ namespace MISA.Web07.GD.NPTINH.DL
                 if (multipleResults != null)
                 {
                     var teachers = multipleResults.Read<Teacher>().ToList();
+                    // Thực hiện vòng lặp qua các đối tượng cán bộ/giáo viên và gán giá trị cho các trường quản lý
                     foreach (var teacher in teachers)
                     {
                         var subjectManagementList = GetSubjectManagementByTeacherID(teacher.TeacherID);
@@ -203,16 +205,19 @@ namespace MISA.Web07.GD.NPTINH.DL
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(updateStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 var result = Guid.Empty;
+                // Xử lý kết quả trả về
                 if (numberOfAffectedRows > 0)
                 {
                     result = teacherID;
                     DeleteRoomManagementByTeacherID(teacherID);
+                    // Thực hiện vòng lặp qua danh sách các kho, phòng quản lý bời cán bộ/giáo viên
                     foreach (var roomManagement in teacher.RoomManagementList)
                     {
                         roomManagement.TeacherID = teacherID;
                         InsertRoomManagement(roomManagement);
                     }
                     DeleteSubjectManagementByTeacherID(teacherID);
+                    // Thực hiện vòng lặp qua danh sách các môn học quản lý bời cán bộ/giáo viên
                     foreach (var subjectManagement in teacher.SubjectManagementList)
                     {
                         subjectManagement.TeacherID = teacherID;
@@ -223,11 +228,16 @@ namespace MISA.Web07.GD.NPTINH.DL
             }
         }
 
+        /// <summary>
+        /// Thêm mới một bản ghi
+        /// </summary>
+        /// <param name="teacher">Đối tượng cán bộ giáo viên</param>
+        /// <returns>ID cán bộ/giáo viên vừa được thêm mới</returns>
+        /// Created by: NPTINH (25/08/2022)
         public override Guid InsertOneRecord(Teacher teacher)
         {
             // Khai báo tên stored procedure INSERT
             string insertStoredProcedureName = $"Proc_Teacher_InsertOne";
-
             // Chuẩn bị tham số đầu vào của stored procedure
             var properties = EntityUtilities.GetColumnAttributeProperties<Teacher>();
             var parameters = new DynamicParameters();
@@ -247,18 +257,18 @@ namespace MISA.Web07.GD.NPTINH.DL
                 var result = Guid.Empty;
                 if (numberOfAffectedRows > 0)
                 {
-
                     if (newID != null)
                     {
+                        // Thực hiện vòng lặp qua danh sách các môn học quản lý bời cán bộ/giáo viên
                         foreach (var subjectManagement in teacher.SubjectManagementList)
                         {
                             subjectManagement.TeacherID = (Guid)newID;
                             InsertSubjectManagement(subjectManagement);
                         }
+                        // Thực hiện vòng lặp qua danh sách các kho, phòng quản lý bời cán bộ/giáo viên
                         foreach (var roomManagement in teacher.RoomManagementList)
                         {
                             roomManagement.TeacherID = (Guid)newID;
-
                             InsertRoomManagement(roomManagement);
                         }
                         result = (Guid)newID;
@@ -290,9 +300,11 @@ namespace MISA.Web07.GD.NPTINH.DL
         }
 
         /// <summary>
-        /// Thêm môn học quản lý theo ID cán bộ/giáo viên
+        /// Thêm môn học quản lý
         /// </summary>
-        /// <param name="subjectManagement">Môn học quản lý muốn thêm</param>
+        /// <param name="subjectManagement">Đối tượng môn học quản lý</param>
+        /// <returns>Trả về số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (25/08/2022)
         private int InsertSubjectManagement(SubjectManagement subjectManagement)
         {
             // Khai báo tên stored procedure INSERT
@@ -315,6 +327,12 @@ namespace MISA.Web07.GD.NPTINH.DL
             }
         }
 
+        /// <summary>
+        /// Xóa kho, phòng quản lý theo ID cán bộ/giáo viên
+        /// </summary>
+        /// <param name="teacherID">ID cán bộ/giáo viên</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (25/08/2022)
         private int DeleteRoomManagementByTeacherID(Guid teacherID)
         {
             // Khai báo tên stored procedure
@@ -331,9 +349,11 @@ namespace MISA.Web07.GD.NPTINH.DL
         }
 
         /// <summary>
-        /// Thêm môn học quản lý theo ID cán bộ/giáo viên
+        /// Thêm môn học quản lý theo
         /// </summary>
-        /// <param name="roomManagement">Kho, phòng quản lý muốn thêm</param>
+        /// <param name="roomManagement">Đối tượng kho, phòng quản lý muốn thêm</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Created by: NPTINH (25/08/2022)
         private int InsertRoomManagement(RoomManagement roomManagement)
         {
 

@@ -139,22 +139,22 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 // Lấy danh sách cán bộ/giáo viên có lọc và phân trang
                 List<Teacher> teachers = _teacherBL.FilterTeacher(keyword, pageSize, pageNumber).Data;
                 string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                string fileName = "teacher.xlsx";
+                string fileName = "Danh_sach_can_bo_giao_vien.xlsx";
 
                 using (var workbook = new XLWorkbook())
                 {
                     // Thêm mới 1 sheet
-                    IXLWorksheet worksheet = workbook.Worksheets.Add("Teacher");
+                    IXLWorksheet worksheet = workbook.Worksheets.Add("Danh sách CBTB");
                     worksheet.Style.Font.FontName = "Times New Roman";
 
                     // Set giá trị và style cho tiêu đề
                     worksheet.Cell(1, 1).Value = "DANH SÁCH CÁN BỘ/GIÁO VIÊN";
-                    worksheet.Range("A1:I1").Row(1).Merge();
-                    worksheet.Range("A1:I1").Row(1).Merge().Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                    worksheet.Range("A1:I1").Row(1).Merge().Style.Font.FontSize = 16;
-                    worksheet.Range("A1:I1").Row(1).Merge().Style.Font.Bold = true;
+                    worksheet.Range("A1:I1").Merge();
+                    worksheet.Range("A1:I1").Merge().Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                    worksheet.Range("A1:I1").Merge().Style.Font.FontSize = 16;
+                    worksheet.Range("A1:I1").Merge().Style.Font.Bold = true;
 
-                    worksheet.Range("A2:I2").Row(1).Merge();
+                    worksheet.Range("A2:I2").Merge();
 
                     worksheet.Cell(3, 1).Value = "STT";
                     worksheet.Cell(3, 1).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);

@@ -6,6 +6,10 @@ using MySqlConnector;
 
 namespace MISA.Web07.GD.NPTINH.DL
 {
+    /// <summary>
+    /// Lớp truy cập dữ liệu cán bộ/giáo viên
+    /// </summary>
+    /// Created by: NPTINH (25/08/2022)
     public class TeacherDL : BaseDL<Teacher>, ITeacherDL
     {
         #region Method

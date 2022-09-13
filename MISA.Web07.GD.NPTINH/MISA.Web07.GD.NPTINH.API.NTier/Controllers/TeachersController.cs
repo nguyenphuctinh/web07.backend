@@ -44,6 +44,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 // Xử lý kết quả trả về từ DB
                 if (maxTeacherCode != null)
                 {
+                    //Thực hiện tạo mới mã cán bộ/giáo viên
                     string newTeacherCode = "SHCB" + (Int64.Parse(maxTeacherCode.Substring(4)) + 1).ToString();
                     return StatusCode(StatusCodes.Status200OK, newTeacherCode);
                 }

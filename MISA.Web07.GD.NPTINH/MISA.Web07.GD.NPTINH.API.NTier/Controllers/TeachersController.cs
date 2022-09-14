@@ -7,6 +7,10 @@ using MISA.Web07.GD.NPTINH.BL;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
 {
+    /// <summary>
+    /// Controller cán bộ/giáo viên
+    /// </summary>
+    /// Created by: NPTINH (16/08/2022)
     [Route("api/v1/[controller]")]
     [ApiController]
     public class TeachersController : BasesController<Teacher>

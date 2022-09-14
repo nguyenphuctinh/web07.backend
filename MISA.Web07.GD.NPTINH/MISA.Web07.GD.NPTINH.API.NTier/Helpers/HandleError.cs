@@ -9,6 +9,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
     /// <summary>
     /// Class static gồm các hàm xử lý lỗi khi gọi API
     /// </summary>
+    /// Created by: NPTINH (25/08/2022)
     public static class HandleError
     {
         /// <summary>

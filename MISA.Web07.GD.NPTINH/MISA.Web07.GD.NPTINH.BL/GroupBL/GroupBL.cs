@@ -3,6 +3,10 @@ using MISA.Web07.GD.NPTINH.DL;
 
 namespace MISA.Web07.GD.NPTINH.BL
 {
+    /// <summary>
+    /// Lớp business tổ bộ môn
+    /// </summary>
+    /// Created by: NPTINH (23/08/2022)
     public class GroupBL : BaseBL<Groups>, IGroupBL
     {
         #region Field

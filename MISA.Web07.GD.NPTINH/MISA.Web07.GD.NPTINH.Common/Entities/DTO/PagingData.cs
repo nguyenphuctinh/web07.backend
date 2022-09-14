@@ -4,6 +4,7 @@
     /// Dữ liệu trả về khi lọc và phân trang
     /// </summary>
     /// <typeparam name="T">Kiểu dữ liệu của đối tượng trong mảng trả về</typeparam>
+    /// Created by: NPTINH (23/08/2022)
     public class PagingData<T>
     {
         /// <summary>

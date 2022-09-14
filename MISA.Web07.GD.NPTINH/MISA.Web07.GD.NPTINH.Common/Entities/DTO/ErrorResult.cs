@@ -5,6 +5,7 @@ namespace MISA.Web07.GD.NPTINH.Common.Entities.DTO
     /// <summary>
     /// Thông tin lỗi trả về cho client
     /// </summary>
+    /// Created by: NPTINH (30/08/2022)
     public class ErrorResult
     {
         #region Property

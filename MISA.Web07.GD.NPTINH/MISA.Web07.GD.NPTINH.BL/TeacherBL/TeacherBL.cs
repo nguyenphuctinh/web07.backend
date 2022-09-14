@@ -4,6 +4,10 @@ using MISA.Web07.GD.NPTINH.DL;
 
 namespace MISA.Web07.GD.NPTINH.BL
 {
+    /// <summary>
+    /// Lớp business cán bộ/giáo viên
+    /// </summary>
+    /// Created by: NPTINH (23/08/2022)
     public class TeacherBL : BaseBL<Teacher>, ITeacherBL
     {
         #region Field

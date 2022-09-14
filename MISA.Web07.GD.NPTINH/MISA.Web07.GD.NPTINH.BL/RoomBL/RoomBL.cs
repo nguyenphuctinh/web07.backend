@@ -3,6 +3,10 @@ using MISA.Web07.GD.NPTINH.DL.RoomDL;
 
 namespace MISA.Web07.GD.NPTINH.BL.RoomBL
 {
+    /// <summary>
+    /// Lớp business kho, phòng
+    /// </summary>
+    /// Created by: NPTINH (23/08/2022)
     public class RoomBL : BaseBL<Room>, IRoomBL
     {
         #region Field

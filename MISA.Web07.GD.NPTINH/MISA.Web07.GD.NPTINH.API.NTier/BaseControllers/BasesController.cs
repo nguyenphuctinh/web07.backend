@@ -5,7 +5,11 @@ using MySqlConnector;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
 {
-
+    /// <summary>
+    /// Controller cơ sở
+    /// </summary>
+    /// <typeparam name="T">Kiểu dữ liệu</typeparam>
+    /// Created by: NPTINH (16/08/2022)
     [Route("api/v1/[controller]")]
     [ApiController]
     public class BasesController<T> : ControllerBase
@@ -87,6 +91,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         /// <param name="record">Đối tượng bản ghi cập nhật</param>
         /// <param name="recordID">ID bản ghi cần cập nhật</param>
         /// <returns>ID bản ghi vừa cập nhật</returns>
+        /// Created by: NPTINH (25/08/2022)
         [HttpPut("{recordID}")]
         public IActionResult UpdateOneRecord([FromBody] T record, [FromRoute] Guid recordID)
         {

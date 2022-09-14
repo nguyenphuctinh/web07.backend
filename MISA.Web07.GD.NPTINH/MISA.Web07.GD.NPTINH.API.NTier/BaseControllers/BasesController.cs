@@ -76,8 +76,12 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             }
             catch (MySqlException mySqlException)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateCodeErrorResult(mySqlException, HttpContext));
-
+                // Nếu như là ngoại lệ khi trùng khóa 
+                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateCodeErrorResult(mySqlException, HttpContext));
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(mySqlException, HttpContext));
             }
             catch (Exception exception)
             {
@@ -111,6 +115,15 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                     return StatusCode(StatusCodes.Status200OK, updatedRecordID);
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
+            }
+            catch (MySqlException mySqlException)
+            {
+                // Nếu như là ngoại lệ khi trùng khóa 
+                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateCodeErrorResult(mySqlException, HttpContext));
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(mySqlException, HttpContext));
             }
             catch (Exception exception)
             {

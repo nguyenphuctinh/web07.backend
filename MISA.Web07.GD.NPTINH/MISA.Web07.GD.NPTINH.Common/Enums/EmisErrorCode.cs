@@ -3,6 +3,7 @@
     /// <summary>
     /// Mã lỗi nội bộ
     /// </summary>
+    /// Created by: NPTINH (30/08/2022)
     public enum EmisErrorCode
     {
         /// <summary>

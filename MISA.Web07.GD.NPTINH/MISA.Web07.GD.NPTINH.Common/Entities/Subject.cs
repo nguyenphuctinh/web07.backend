@@ -6,6 +6,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
     /// <summary>
     /// Môn học
     /// </summary>
+    /// Created by: NPTINH (15/08/2022)
     [Table("subject")]
     public class Subject
     {

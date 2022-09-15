@@ -1,5 +1,10 @@
 ﻿namespace MISA.Web07.GD.NPTINH.DL
 {
+    /// <summary>
+    /// Interface cơ sở truy cập dữ liệu
+    /// </summary>
+    /// <typeparam name="T">Kiểu dữ liệu</typeparam>
+    /// Created by: NPTINH (23/08/2022)
     public interface IBaseDL<T>
     {
         /// <summary>

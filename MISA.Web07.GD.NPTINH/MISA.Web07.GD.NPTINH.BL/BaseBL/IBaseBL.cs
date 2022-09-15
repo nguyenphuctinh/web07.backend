@@ -1,5 +1,10 @@
 ﻿namespace MISA.Web07.GD.NPTINH.BL
 {
+    /// <summary>
+    /// Interface business cơ sở
+    /// </summary>
+    /// <typeparam name="T">Kiểu dữ liệu</typeparam>
+    /// Created by: NPTINH (23/08/2022)
     public interface IBaseBL<T>
     {
         /// <summary>

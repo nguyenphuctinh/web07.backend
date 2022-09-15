@@ -6,10 +6,12 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
     /// <summary>
     /// Cán bộ/giáo viên
     /// </summary>
+    /// Created by: NPTINH (15/08/2022)
     [Table("Teacher")]
     public class Teacher
     {
         #region Property
+
         /// <summary>
         /// ID cán bộ/giáo viên
         /// </summary>
@@ -109,6 +111,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// </summary>
         [Column("ModifiedBy")]
         public string? ModifiedBy { get; set; }
+
         #endregion
     }
 }

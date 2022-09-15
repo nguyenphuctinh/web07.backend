@@ -6,6 +6,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
     /// <summary>
     /// Kho, phòng quản lý
     /// </summary>
+    /// Created by: NPTINH(20/08/2022)
     [Table("roommanagement")]
     public class RoomManagement
     {

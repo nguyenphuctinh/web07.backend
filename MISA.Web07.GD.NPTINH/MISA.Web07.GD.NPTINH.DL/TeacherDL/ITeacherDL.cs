@@ -3,6 +3,10 @@ using MISA.Web07.GD.NPTINH.API.Entities.DTO;
 
 namespace MISA.Web07.GD.NPTINH.DL
 {
+    /// <summary>
+    /// Interface truy cập dữ liệu cán bộ/giáo viên
+    /// </summary>
+    /// Created by: NPTINH (23/08/2022)
     public interface ITeacherDL : IBaseDL<Teacher>
     {
         /// <summary>

@@ -6,6 +6,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
     /// <summary>
     /// Tổ bộ môn
     /// </summary>
+    /// Created by: NPTINH (15/08/2022)
     [Table("groups")]
     public class Groups
     {

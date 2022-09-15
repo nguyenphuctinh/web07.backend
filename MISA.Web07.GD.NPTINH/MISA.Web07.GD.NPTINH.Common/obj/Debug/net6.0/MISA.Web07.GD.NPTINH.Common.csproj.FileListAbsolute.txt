@@ -10,3 +10,5 @@ D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.Common\obj\Debug\net6.
 D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.Common\obj\Debug\net6.0\refint\MISA.Web07.GD.NPTINH.Common.dll
 D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.Common\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.Common.pdb
 D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.Common\obj\Debug\net6.0\ref\MISA.Web07.GD.NPTINH.Common.dll
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.Common\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.Common.Resources.Resources.resources
+D:\MISA\Backend\MISA.Web07.GD.NPTINH\MISA.Web07.GD.NPTINH.Common\obj\Debug\net6.0\MISA.Web07.GD.NPTINH.Common.csproj.GenerateResource.cache

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MISA.Web07.GD.NPTINH.Common.Entities.DTO;
 using MISA.Web07.GD.NPTINH.Common.Enums;
+using MISA.Web07.GD.NPTINH.Common.Resources;
 using MySqlConnector;
 using System.Diagnostics;
 
@@ -33,7 +34,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
                 }
                 var errorResult = new ErrorResult(
                     EmisErrorCode.Validate,
-                    "Dữ liệu không hợp lệ",
+                    Resources.Error_UserMessages_Invalid,
                     errors,
                     "https://openapi.misa.com.vn/errorcode/e002",
                     Activity.Current?.Id ?? httpContext?.TraceIdentifier);
@@ -56,7 +57,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
             Console.WriteLine(exception.Message);
             return new ErrorResult(
                EmisErrorCode.Exception,
-                "Có lỗi xảy ra. Vui lòng liên hệ MISA!",
+                Resources.Error_UserMessages_Exception,
                 new List<string>() { "e001" },
                 "https://openapi.misa.com.vn/errorcode/e002",
                 Activity.Current?.Id ?? httpContext?.TraceIdentifier);
@@ -77,14 +78,14 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
             {
                 return new ErrorResult(
                     EmisErrorCode.DuplicateCode,
-                    "Số hiệu cán bộ đã tồn tại trong hệ thống vui lòng kiểm tra lại.",
+                    Resources.Error_UserMessages_DuplicateCode,
                     new List<string>() { "e003" },
                     "https://openapi.misa.com.vn/errorcode/e003",
                     Activity.Current?.Id ?? httpContext?.TraceIdentifier);
             }
             return new ErrorResult(
                 EmisErrorCode.Exception,
-                "Có lỗi xảy ra. Vui lòng liên hệ MISA!",
+                Resources.Error_UserMessages_Exception,
                  new List<string>() { "e001" },
                 "https://openapi.misa.com.vn/errorcode/e002",
                 Activity.Current?.Id ?? httpContext?.TraceIdentifier);
@@ -100,7 +101,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
         {
             return new ErrorResult(
                EmisErrorCode.Database,
-               "Có lỗi xảy ra. Vui lòng liên hệ MISA!",
+               Resources.Error_UserMessages_Exception,
                 new List<string>() { "e002" },
                "https://openapi.misa.com.vn/errorcode/e002",
                Activity.Current?.Id ?? httpContext?.TraceIdentifier);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MISA.Web07.GD.NPTINH.API.NTier.Helpers;
 using MISA.Web07.GD.NPTINH.BL;
+using MISA.Web07.GD.NPTINH.BL.Exceptions;
 using MySqlConnector;
 
 namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
@@ -19,6 +20,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         private IBaseBL<T> _baseBL;
 
         #endregion
+
         #region Constructor
 
         public BasesController(IBaseBL<T> baseBL)
@@ -59,13 +61,6 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         {
             try
             {
-                // Validate entity
-                var validateResult = HandleError.ValidateEntity(ModelState, HttpContext);
-                // Xử lý kết quả trả về
-                if (validateResult != null)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, validateResult);
-                }
                 Guid newID = _baseBL.InsertOneRecord(record);
                 // Xử lý kết quả trả về
                 if (newID != Guid.Empty)
@@ -73,6 +68,10 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                     return StatusCode(StatusCodes.Status201Created, newID);
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
+            }
+            catch (ValidateException validateException)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateExceptionResult(validateException, HttpContext));
             }
             catch (MySqlException mySqlException)
             {
@@ -101,13 +100,6 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
         {
             try
             {
-                // Validate entity
-                var validateResult = HandleError.ValidateEntity(ModelState, HttpContext);
-                // Xử lý kết quả trả về
-                if (validateResult != null)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, validateResult);
-                }
                 var updatedRecordID = _baseBL.UpdateOneRecord(record, recordID);
                 // Xử lý kết quả trả về
                 if (updatedRecordID != Guid.Empty)
@@ -115,6 +107,10 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                     return StatusCode(StatusCodes.Status200OK, updatedRecordID);
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
+            }
+            catch (ValidateException validateException)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateExceptionResult(validateException, HttpContext));
             }
             catch (MySqlException mySqlException)
             {
@@ -192,7 +188,6 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 if (numberOfAffectedRows > 0)
                 {
                     return StatusCode(StatusCodes.Status200OK, recordIDs);
-
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }

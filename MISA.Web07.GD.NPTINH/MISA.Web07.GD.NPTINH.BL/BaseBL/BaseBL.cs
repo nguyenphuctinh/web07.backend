@@ -42,7 +42,19 @@ namespace MISA.Web07.GD.NPTINH.BL
         /// Created by: NPTINH (25/08/2022)
         public Guid InsertOneRecord(T record)
         {
+            // Thực hiện validate dữ liệu
+            Validate(record);
             return _baseDL.InsertOneRecord(record);
+        }
+
+        /// <summary>
+        /// Thực hiện validate đối tượng
+        /// </summary>np
+        /// <param name="record">Đối tượng cần validate</param>
+        /// Created by: NPTINH (15/09/2022)
+        protected virtual void Validate(T record)
+        {
+
         }
 
         /// <summary>
@@ -54,6 +66,8 @@ namespace MISA.Web07.GD.NPTINH.BL
         /// Created by: NPTINH (25/08/2022)
         public Guid UpdateOneRecord(T record, Guid recordID)
         {
+            // Thực hiện validate dữ liệu
+            Validate(record);
             return _baseDL.UpdateOneRecord(record, recordID);
         }
 

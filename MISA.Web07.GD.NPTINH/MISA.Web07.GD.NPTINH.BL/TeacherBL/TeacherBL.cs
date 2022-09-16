@@ -1,5 +1,6 @@
 ﻿using MISA.Web07.GD.NPTINH.API.Entities;
 using MISA.Web07.GD.NPTINH.API.Entities.DTO;
+using MISA.Web07.GD.NPTINH.BL.Exceptions;
 using MISA.Web07.GD.NPTINH.DL;
 
 namespace MISA.Web07.GD.NPTINH.BL
@@ -61,6 +62,24 @@ namespace MISA.Web07.GD.NPTINH.BL
         public Teacher GetTeacherByID(Guid teacherID)
         {
             return _teacherDL.GetTeacherByID(teacherID);
+        }
+
+        /// <summary>
+        /// Thực hiện validate
+        /// </summary>
+        /// <param name="record">Đối tượng cần validate</param>
+        /// Created by: NPTINH (15/09/2022)
+        protected override void Validate(Teacher record)
+        {
+            List<string> errors = new List<string>();
+            if (record.QuitDate > DateTime.Today)
+            {
+                errors.Add("e008");
+            }
+            if (errors.Count > 0)
+            {
+                throw new ValidateException(errors);
+            }
         }
     }
 }

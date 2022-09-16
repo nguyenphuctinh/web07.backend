@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using MISA.Web07.GD.NPTINH.BL.Exceptions;
 using MISA.Web07.GD.NPTINH.Common.Entities.DTO;
 using MISA.Web07.GD.NPTINH.Common.Enums;
 using MISA.Web07.GD.NPTINH.Common.Resources;
@@ -14,39 +14,27 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Helpers
     public static class HandleError
     {
         /// <summary>
-        /// Validate 1 entity trả về đối tượng chứa thông tin lỗi
+        /// Sinh ra dối tượng lỗi
         /// </summary>
-        /// <param name="modelState">Đối tượng modelstate hứng được khi gọi API</param>
         /// <param name="httpContext">Context khi gọi API sử dụng để lấy được traceId</param>
         /// <returns>Đối tượng chứa thông tin lỗi trả về cho client</returns>
         /// Created by: NPTINH (25/08/2022)
-        public static ErrorResult? ValidateEntity(ModelStateDictionary modelState, HttpContext httpContext)
+        public static ErrorResult? GenerateValidateExceptionResult(ValidateException validateException, HttpContext httpContext)
         {
-            if (!modelState.IsValid)
-            {
-                var errors = new List<string>();
-                foreach (var state in modelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        errors.Add(error.ErrorMessage);
-                    }
-                }
-                var errorResult = new ErrorResult(
-                    EmisErrorCode.Validate,
-                    Resources.Error_UserMessages_Invalid,
-                    errors,
-                    "https://openapi.misa.com.vn/errorcode/e002",
-                    Activity.Current?.Id ?? httpContext?.TraceIdentifier);
 
-                return errorResult;
-            }
+            var errors = validateException.Data["errors"];
+            var errorResult = new ErrorResult(
+                EmisErrorCode.Validate,
+                Resources.Error_UserMessages_Invalid,
+                errors,
+                "https://openapi.misa.com.vn/errorcode/e002",
+                Activity.Current?.Id ?? httpContext?.TraceIdentifier);
 
-            return null;
+            return errorResult;
         }
 
         /// <summary>
-        /// Sinh ra đối tượng lỗi khi gặp exception
+        /// Sinh ra đối tượng lỗi khi gặp exception chung
         /// </summary>
         /// <param name="exception">Đối tượng exception gặp phải</param>
         /// <param name="httpContext">Context khi gọi API sử dụng để lấy traceID</param>

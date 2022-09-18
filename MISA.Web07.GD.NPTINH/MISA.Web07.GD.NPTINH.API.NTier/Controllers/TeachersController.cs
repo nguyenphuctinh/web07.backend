@@ -62,6 +62,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
+
         /// <summary>
         /// API Lấy thông tin chi tiết của 1 cán bộ/giáo viên
         /// </summary>

@@ -11,6 +11,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
     public class RoomManagement
     {
         #region Property
+
         /// <summary>
         /// ID phòng quản lý
         /// </summary>
@@ -47,6 +48,7 @@ namespace MISA.Web07.GD.NPTINH.API.Entities
         /// </summary>
         [Column("CreatedBy")]
         public string? CreatedBy { get; set; }
+
         #endregion
     }
 }

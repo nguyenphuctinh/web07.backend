@@ -16,6 +16,7 @@ namespace MISA.Web07.GD.NPTINH.BL
         #endregion
 
         #region Constructor
+
         public BaseBL(IBaseDL<T> baseDL)
         {
             _baseDL = baseDL;

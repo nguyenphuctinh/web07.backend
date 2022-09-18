@@ -2,6 +2,7 @@
 using MISA.Web07.GD.NPTINH.API.Entities.DTO;
 using MISA.Web07.GD.NPTINH.BL.Exceptions;
 using MISA.Web07.GD.NPTINH.DL;
+using System.Text.RegularExpressions;
 
 namespace MISA.Web07.GD.NPTINH.BL
 {
@@ -67,12 +68,33 @@ namespace MISA.Web07.GD.NPTINH.BL
         /// <summary>
         /// Thực hiện validate
         /// </summary>
-        /// <param name="record">Đối tượng cần validate</param>
+        /// <param name="teacher">Đối tượng cần validate</param>
         /// Created by: NPTINH (15/09/2022)
-        protected override void Validate(Teacher record)
+        protected override void Validate(Teacher teacher)
         {
             List<string> errors = new List<string>();
-            if (record.QuitDate > DateTime.Today)
+            // Nếu như mã cán bộ/giáo viên trống hoặc bằng null
+            if (string.IsNullOrEmpty(teacher.TeacherCode))
+            {
+                errors.Add("e004");
+            }
+            // Nếu như họ và tên cán bộ/giáo viên trống hoặc bằng null
+            if (string.IsNullOrEmpty(teacher.FullName))
+            {
+                errors.Add("e005");
+            }
+            // Nếu như email khác null và khác rỗng thì kiểm tra fomart
+            if (!string.IsNullOrEmpty(teacher.Email) && !Regex.IsMatch(teacher.Email, @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$"))
+            {
+                errors.Add("e006");
+            }
+            // Nếu như số điện thoại khác null và khác rỗng thì kiểm tra độ dài và ký tự
+            if (!string.IsNullOrEmpty(teacher.PhoneNumber) && (teacher.PhoneNumber.Length < 10 || !Regex.IsMatch(teacher.PhoneNumber, @"^[0-9]+$")))
+            {
+                errors.Add("e007");
+            }
+            // Nếu như ngày nghỉ việc lớn hơn ngày hiện tại
+            if (teacher.QuitDate > DateTime.Today)
             {
                 errors.Add("e008");
             }

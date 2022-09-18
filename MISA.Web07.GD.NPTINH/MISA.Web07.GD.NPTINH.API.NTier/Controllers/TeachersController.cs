@@ -52,14 +52,11 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                     string newTeacherCode = "SHCB" + (Int64.Parse(maxTeacherCode.Substring(4)) + 1).ToString();
                     return StatusCode(StatusCodes.Status200OK, newTeacherCode);
                 }
-                else
-                {
-                    return StatusCode(StatusCodes.Status404NotFound);
-                }
+                return StatusCode(StatusCodes.Status404NotFound);
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -80,14 +77,11 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
                 {
                     return StatusCode(StatusCodes.Status200OK, teacher);
                 }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
-                }
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -112,18 +106,16 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             try
             {
                 var pagingData = _teacherBL.FilterTeacher(keyword, pageSize, pageNumber);
+                // Xử lý kết quả trả về
                 if (pagingData != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, pagingData);
                 }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
-                }
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -292,7 +284,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.Controllers
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
 
         }

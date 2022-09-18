@@ -46,7 +46,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -67,12 +67,14 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status201Created, newID);
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
+            // Bắt lỗi ngoại lệ validate dữ liệu
             catch (ValidateException validateException)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateExceptionResult(validateException, HttpContext));
             }
+            // Bắt lỗi ngoại lệ mysql
             catch (MySqlException mySqlException)
             {
                 // Nếu như là ngoại lệ khi trùng khóa 
@@ -80,11 +82,11 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateCodeErrorResult(mySqlException, HttpContext));
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(mySqlException, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(mySqlException, HttpContext));
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -106,8 +108,9 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status200OK, updatedRecordID);
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
+            // Bắt lỗi ngoại lệ validate dữ liệu
             catch (ValidateException validateException)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateExceptionResult(validateException, HttpContext));
@@ -119,11 +122,11 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateCodeErrorResult(mySqlException, HttpContext));
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(mySqlException, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(mySqlException, HttpContext));
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -144,14 +147,11 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status200OK, recordID);
                 }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
-                }
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -169,7 +169,7 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 
@@ -185,15 +185,16 @@ namespace MISA.Web07.GD.NPTINH.API.NTier.BaseControllers
             try
             {
                 int numberOfAffectedRows = _baseBL.DeleteMultipleRecords(recordIDs);
+                // Xử lý kết quả trả về
                 if (numberOfAffectedRows > 0)
                 {
                     return StatusCode(StatusCodes.Status200OK, recordIDs);
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDatabaseErrorResult(HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateDatabaseErrorResult(HttpContext));
             }
             catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateExceptionResult(exception, HttpContext));
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateExceptionResult(exception, HttpContext));
             }
         }
 

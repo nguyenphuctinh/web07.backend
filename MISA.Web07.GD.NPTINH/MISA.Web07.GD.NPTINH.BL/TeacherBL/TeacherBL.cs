@@ -27,6 +27,8 @@ namespace MISA.Web07.GD.NPTINH.BL
 
         #endregion
 
+        #region Method
+
         /// <summary>
         /// Lấy danh sách cán bộ giáo viên có lọc và phân trang
         /// </summary>
@@ -103,5 +105,7 @@ namespace MISA.Web07.GD.NPTINH.BL
                 throw new ValidateException(errors);
             }
         }
+
+        #endregion
     }
 }

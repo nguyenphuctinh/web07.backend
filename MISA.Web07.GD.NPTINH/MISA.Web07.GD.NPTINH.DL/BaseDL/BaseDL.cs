@@ -27,9 +27,9 @@ namespace MISA.Web07.GD.NPTINH.DL
                 string tableName = EntityUtilities.GetTableName<T>();
                 EntityUtilities.GetKeyProperty<T>();
 
-                string insertStoredProcedureName = $"Proc_{tableName}_SelectAll";
+                string selectStoredProcedureName = $"Proc_{tableName}_SelectAll";
                 // Thực hiện gọi vào DB để chạy câu lệnh stored procedure 
-                var multipleResults = mySqlConnection.QueryMultiple(insertStoredProcedureName, commandType: System.Data.CommandType.StoredProcedure);
+                var multipleResults = mySqlConnection.QueryMultiple(selectStoredProcedureName, commandType: System.Data.CommandType.StoredProcedure);
                 if (multipleResults != null)
                 {
                     var records = multipleResults.Read<T>().ToList();

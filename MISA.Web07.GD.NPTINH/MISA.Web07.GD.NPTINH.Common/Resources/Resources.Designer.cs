@@ -86,5 +86,59 @@ namespace MISA.Web07.GD.NPTINH.Common.Resources {
                 return ResourceManager.GetString("Error_UserMessages_Invalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e001.
+        /// </summary>
+        public static string ErrorCode_Exception {
+            get {
+                return ResourceManager.GetString("ErrorCode_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e008.
+        /// </summary>
+        public static string ErrorCode_InValidDate {
+            get {
+                return ResourceManager.GetString("ErrorCode_InValidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e006.
+        /// </summary>
+        public static string ErrorCode_InValidEmail {
+            get {
+                return ResourceManager.GetString("ErrorCode_InValidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e007.
+        /// </summary>
+        public static string ErrorCode_InValidPhoneNumber {
+            get {
+                return ResourceManager.GetString("ErrorCode_InValidPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e005.
+        /// </summary>
+        public static string ErrorCode_RequiredFullName {
+            get {
+                return ResourceManager.GetString("ErrorCode_RequiredFullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e004.
+        /// </summary>
+        public static string ErrorCode_RequiredTeacherCode {
+            get {
+                return ResourceManager.GetString("ErrorCode_RequiredTeacherCode", resourceCulture);
+            }
+        }
     }
 }

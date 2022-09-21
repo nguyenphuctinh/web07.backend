@@ -3,6 +3,7 @@ using MISA.Web07.GD.NPTINH.API.Entities;
 using MISA.Web07.GD.NPTINH.API.Entities.DTO;
 using MISA.Web07.GD.NPTINH.Common.Utilities;
 using MySqlConnector;
+using System.Transactions;
 
 namespace MISA.Web07.GD.NPTINH.DL
 {
@@ -256,6 +257,7 @@ namespace MISA.Web07.GD.NPTINH.DL
             parameters.Add($"v_{key.Name}", newID);
             // Thực hiện gọi vào DB để chạy câu lệnh stored procedure với tham số đầu vào ở trên
             using (var mySqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
+            using (var transactionScope = new TransactionScope())
             {
                 int numberOfAffectedRows = mySqlConnection.Execute(insertStoredProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 var result = Guid.Empty;
@@ -268,15 +270,18 @@ namespace MISA.Web07.GD.NPTINH.DL
                         {
                             subjectManagement.TeacherID = (Guid)newID;
                             InsertSubjectManagement(subjectManagement);
+
                         }
                         // Thực hiện vòng lặp qua danh sách các kho, phòng quản lý bời cán bộ/giáo viên
                         foreach (var roomManagement in teacher.RoomManagementList)
                         {
                             roomManagement.TeacherID = (Guid)newID;
                             InsertRoomManagement(roomManagement);
+
                         }
                         result = (Guid)newID;
                     }
+                    transactionScope.Complete();
                 }
                 return result;
             }

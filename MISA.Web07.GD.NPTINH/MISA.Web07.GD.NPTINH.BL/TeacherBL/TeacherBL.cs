@@ -1,6 +1,7 @@
 ﻿using MISA.Web07.GD.NPTINH.API.Entities;
 using MISA.Web07.GD.NPTINH.API.Entities.DTO;
 using MISA.Web07.GD.NPTINH.BL.Exceptions;
+using MISA.Web07.GD.NPTINH.Common.Resources;
 using MISA.Web07.GD.NPTINH.DL;
 using System.Text.RegularExpressions;
 
@@ -78,27 +79,27 @@ namespace MISA.Web07.GD.NPTINH.BL
             // Nếu như mã cán bộ/giáo viên trống hoặc bằng null
             if (string.IsNullOrEmpty(teacher.TeacherCode))
             {
-                errors.Add("e004");
+                errors.Add(Resources.ErrorCode_RequiredTeacherCode);
             }
             // Nếu như họ và tên cán bộ/giáo viên trống hoặc bằng null
             if (string.IsNullOrEmpty(teacher.FullName))
             {
-                errors.Add("e005");
+                errors.Add(Resources.ErrorCode_RequiredFullName);
             }
             // Nếu như email khác null và khác rỗng thì kiểm tra fomart
             if (!string.IsNullOrEmpty(teacher.Email) && !Regex.IsMatch(teacher.Email, @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$"))
             {
-                errors.Add("e006");
+                errors.Add(Resources.ErrorCode_InValidEmail);
             }
             // Nếu như số điện thoại khác null và khác rỗng thì kiểm tra độ dài và ký tự
             if (!string.IsNullOrEmpty(teacher.PhoneNumber) && (teacher.PhoneNumber.Length < 10 || !Regex.IsMatch(teacher.PhoneNumber, @"^[0-9]+$")))
             {
-                errors.Add("e007");
+                errors.Add(Resources.ErrorCode_InValidPhoneNumber);
             }
             // Nếu như ngày nghỉ việc lớn hơn ngày hiện tại
             if (teacher.QuitDate > DateTime.Today)
             {
-                errors.Add("e008");
+                errors.Add(Resources.ErrorCode_InValidDate);
             }
             if (errors.Count > 0)
             {

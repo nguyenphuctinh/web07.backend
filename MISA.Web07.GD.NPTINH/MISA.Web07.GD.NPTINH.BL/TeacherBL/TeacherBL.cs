@@ -96,11 +96,7 @@ namespace MISA.Web07.GD.NPTINH.BL
             {
                 errors.Add(Resources.ErrorCode_InValidPhoneNumber);
             }
-            // Nếu như ngày nghỉ việc lớn hơn ngày hiện tại
-            if (teacher.QuitDate > DateTime.Today)
-            {
-                errors.Add(Resources.ErrorCode_InValidDate);
-            }
+
             if (errors.Count > 0)
             {
                 throw new ValidateException(errors);

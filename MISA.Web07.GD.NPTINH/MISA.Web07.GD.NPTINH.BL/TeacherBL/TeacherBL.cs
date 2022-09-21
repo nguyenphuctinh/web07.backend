@@ -48,13 +48,21 @@ namespace MISA.Web07.GD.NPTINH.BL
         }
 
         /// <summary>
-        /// Lấy mã cán bộ/giáo viên lớn nhất
+        /// Lấy mã cán bộ/giáo viên mới
         /// </summary>
-        /// <returns>Trả về mã cán bộ/giáo viên lớn nhất</returns>
+        /// <returns>Trả về mã cán bộ/giáo viên mới</returns>
         /// Created by: NPTINH(23/08/2022)
-        public string GetMaxCode()
+        public string GetNewCode()
         {
-            return _teacherDL.GetMaxCode();
+            string maxTeacherCode = _teacherDL.GetMaxCode();
+            if (maxTeacherCode != null)
+            {
+                //Thực hiện tạo mới mã cán bộ/giáo viên
+                string newTeacherCode = "SHCB" + (Int64.Parse(maxTeacherCode.Substring(4)) + 1).ToString();
+                return newTeacherCode;
+            }
+            return null;
+
         }
 
         /// <summary>

@@ -10,11 +10,11 @@ namespace MISA.Web07.GD.NPTINH.BL
     public interface ITeacherBL : IBaseBL<Teacher>
     {
         /// <summary>
-        /// Lấy mã cán bộ giáo viên lớn nhất
+        /// Lấy mã cán bộ giáo viên mới
         /// </summary>
-        /// <returns>Trả về mã cán bộ, giáo viên lớn nhất</returns>
+        /// <returns>Trả về mã cán bộ, giáo viên mới </returns>
         /// Created by: NPTINH(23/08/2022)
-        public string GetMaxCode();
+        public string GetNewCode();
 
         /// <summary>
         /// API Lấy thông tin chi tiết của 1 cán bộ/giáo viên
